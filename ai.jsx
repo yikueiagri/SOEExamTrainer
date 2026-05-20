@@ -1,7 +1,27 @@
-// AI analysis component — calls window.claude.complete to get exam tutor feedback,
-// then renders structured sections with copy + share buttons.
+// AI analysis component — calls Anthropic API directly with user-provided key
+// (stored in localStorage). Falls back to window.claude.complete when running
+// inside the editor environment that provides it.
 
-const { useState: useStateAI, useRef: useRefAI } = React;
+const { useState: useStateAI, useRef: useRefAI, useEffect: useEffectAI } = React;
+
+const CLAUDE_STORE = "soe_claude_v1";
+const CLAUDE_MODEL = "claude-haiku-4-5";
+
+function getClaudeKey() {
+  return localStorage.getItem(CLAUDE_STORE + "_apiKey") || "";
+}
+function setClaudeKey(v) {
+  if (v) localStorage.setItem(CLAUDE_STORE + "_apiKey", v);
+  else localStorage.removeItem(CLAUDE_STORE + "_apiKey");
+}
+window.getClaudeKey = getClaudeKey;
+window.setClaudeKey = setClaudeKey;
+window.CLAUDE_MODEL = CLAUDE_MODEL;
+
+// Open settings — wired up by App.
+window.openClaudeSettings = () => {
+  window.dispatchEvent(new CustomEvent("__open_claude_settings"));
+};
 
 const AI_PROMPT_SYSTEM = `你是一位精通台灣國營事業考試（如台水、台電、中油、經濟部聯招）的補習班名師。針對使用者提供的題目與作答，請務必嚴格依照以下四個區塊的固定順序與標題回答，每個區塊獨立成段：
 
@@ -34,11 +54,45 @@ ${optsText}
 標準答案：${answer.join("、")}${userPart}`;
 }
 
+async function callClaude(userMsg) {
+  const key = getClaudeKey();
+  // Prefer direct Anthropic call (works on GitHub Pages / standalone)
+  if (key) {
+    const r = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        "x-api-key": key,
+        "anthropic-version": "2023-06-01",
+        "anthropic-dangerous-direct-browser-access": "true",
+      },
+      body: JSON.stringify({
+        model: CLAUDE_MODEL,
+        max_tokens: 1500,
+        system: AI_PROMPT_SYSTEM,
+        messages: [{ role: "user", content: userMsg }],
+      }),
+    });
+    if (!r.ok) {
+      const err = await r.json().catch(() => ({}));
+      const msg = err?.error?.message || `HTTP ${r.status}`;
+      throw new Error(msg);
+    }
+    const data = await r.json();
+    return data.content?.[0]?.text || "（沒有取得回覆內容）";
+  }
+  // Fallback: env-provided window.claude.complete (editor sandbox only)
+  if (window.claude && window.claude.complete) {
+    return await window.claude.complete({
+      messages: [{ role: "user", content: AI_PROMPT_SYSTEM + "\n\n----\n\n" + userMsg }],
+    });
+  }
+  throw new Error("尚未設定 Anthropic API Key — 點 sidebar 的「Claude 老師」設定一次即可。");
+}
+
 function parseAIResponse(text) {
   const sections = { 標準答案: "", 核心觀念: "", 深度解析: "", 觀念導正: "" };
   const order = ["標準答案", "核心觀念", "深度解析", "觀念導正"];
-
-  // Find each section by header
   const positions = [];
   order.forEach(label => {
     const re = new RegExp("【\\s*" + label + "\\s*】", "g");
@@ -46,17 +100,13 @@ function parseAIResponse(text) {
     if (m) positions.push({ label, start: m.index, end: m.index + m[0].length });
   });
   positions.sort((a,b) => a.start - b.start);
-
   for (let i = 0; i < positions.length; i++) {
     const cur = positions[i];
     const next = positions[i+1];
     const body = text.slice(cur.end, next ? next.start : text.length).trim();
     sections[cur.label] = body;
   }
-  // Fallback: if no headers found, dump everything into 深度解析
-  if (positions.length === 0) {
-    sections.深度解析 = text.trim();
-  }
+  if (positions.length === 0) sections.深度解析 = text.trim();
   return sections;
 }
 
@@ -69,6 +119,11 @@ function AIAnalysis({ q, subjectName, userPicked, autoStart=false }) {
 
   const start = async () => {
     if (startedRef.current) return;
+    // 如果沒 key 且沒 sandbox API，直接彈設定
+    if (!getClaudeKey() && !(window.claude && window.claude.complete)) {
+      window.openClaudeSettings();
+      return;
+    }
     startedRef.current = true;
     setState("loading");
     setError(null);
@@ -77,24 +132,17 @@ function AIAnalysis({ q, subjectName, userPicked, autoStart=false }) {
         stem: q.stem, options: q.options, answer: q.answer,
         userPicked, subjectName, type: q.type,
       });
-      if (!window.claude || !window.claude.complete) {
-        throw new Error("AI 功能無法載入，請重新整理頁面再試");
-      }
-      const reply = await window.claude.complete({
-        messages: [
-          { role: "user", content: AI_PROMPT_SYSTEM + "\n\n----\n\n" + userMsg },
-        ],
-      });
+      const reply = await callClaude(userMsg);
       setResult(parseAIResponse(reply));
       setState("done");
     } catch (e) {
       setError(e.message || String(e));
       setState("error");
-      startedRef.current = false; // allow retry
+      startedRef.current = false;
     }
   };
 
-  React.useEffect(() => {
+  useEffectAI(() => {
     if (autoStart) start();
     // eslint-disable-next-line
   }, []);
@@ -118,28 +166,20 @@ function AIAnalysis({ q, subjectName, userPicked, autoStart=false }) {
     const text = buildSharableText();
     try {
       await navigator.clipboard.writeText(text);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1600);
+      setCopied(true); setTimeout(() => setCopied(false), 1600);
     } catch (e) {
-      // fallback
       const ta = document.createElement("textarea");
       ta.value = text; document.body.appendChild(ta); ta.select();
       document.execCommand("copy"); ta.remove();
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1600);
+      setCopied(true); setTimeout(() => setCopied(false), 1600);
     }
   };
 
   const handleShare = async () => {
     const text = buildSharableText();
     if (navigator.share) {
-      try {
-        await navigator.share({ title: "國營考題觀念導正", text });
-      } catch (e) { /* user cancelled */ }
-    } else {
-      // Fallback: copy
-      handleCopy();
-    }
+      try { await navigator.share({ title: "國營考題觀念導正", text }); } catch (e) {}
+    } else { handleCopy(); }
   };
 
   if (state === "idle") {
@@ -157,8 +197,8 @@ function AIAnalysis({ q, subjectName, userPicked, autoStart=false }) {
         <div className="ai-head">
           <div className="ai-spark claude"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 14.5 9.5 22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5z"/></svg></div>
           <div>
-            <div className="ai-title">Claude 老師<span className="ai-tag claude">CLAUDE HAIKU</span></div>
-            <div className="ai-sub">內建即時咨詢 · 分析中…</div>
+            <div className="ai-title">Claude 老師<span className="ai-tag claude">{CLAUDE_MODEL}</span></div>
+            <div className="ai-sub">分析中…</div>
           </div>
         </div>
         <div className="ai-loading">
@@ -170,24 +210,29 @@ function AIAnalysis({ q, subjectName, userPicked, autoStart=false }) {
   }
 
   if (state === "error") {
+    const needKey = /api[_ ]?key|invalid|authentication|尚未設定/i.test(error || "");
     return (
       <div className="ai-block">
         <div className="ai-error">分析失敗：{error}</div>
-        <div style={{padding:"0 14px 14px"}}>
+        <div style={{padding:"0 14px 14px",display:"flex",gap:6}}>
+          {needKey && (
+            <button className="ai-btn claude" onClick={() => window.openClaudeSettings()}>
+              設定 API Key
+            </button>
+          )}
           <button className="ai-btn ghost" onClick={() => { startedRef.current = false; start(); }}>重新嘗試</button>
         </div>
       </div>
     );
   }
 
-  // done
   return (
     <div className="ai-block claude">
       <div className="ai-head">
         <div className="ai-spark claude"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 14.5 9.5 22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5z"/></svg></div>
         <div>
-          <div className="ai-title">Claude 老師<span className="ai-tag claude">CLAUDE HAIKU</span></div>
-          <div className="ai-sub">內建即時咨詢 · {q.type === "multi" ? "複選" : "單選"}題深度解析</div>
+          <div className="ai-title">Claude 老師<span className="ai-tag claude">{CLAUDE_MODEL}</span></div>
+          <div className="ai-sub">{q.type === "multi" ? "複選" : "單選"}題深度解析</div>
         </div>
         <div className="ai-actions">
           <button onClick={handleCopy} title={copied ? "已複製" : "複製全文"} style={copied ? {color:"var(--ok-ink)"} : undefined}>
@@ -218,4 +263,80 @@ function AIAnalysis({ q, subjectName, userPicked, autoStart=false }) {
   );
 }
 
+// ============ Settings Modal ============
+function ClaudeSettingsModal({ onClose }) {
+  const Modal = window.Modal;
+  const [draft, setDraft] = useStateAI(getClaudeKey());
+  const [showKey, setShowKey] = useStateAI(false);
+  const current = getClaudeKey();
+  const hasSandbox = !!(window.claude && window.claude.complete);
+
+  const save = () => {
+    const v = draft.trim();
+    setClaudeKey(v);
+    onClose();
+  };
+  const clear = () => {
+    setClaudeKey("");
+    setDraft("");
+  };
+
+  return (
+    <Modal title="Claude 老師設定" onClose={onClose} footer={
+      <>
+        {current && <button className="btn btn-ghost" style={{color:"var(--warn-ink)"}} onClick={clear}>清除已存 Key</button>}
+        <div style={{flex:1}}/>
+        <button className="btn btn-ghost" onClick={onClose}>取消</button>
+        <button className="btn btn-primary" onClick={save}>儲存</button>
+      </>
+    }>
+      <div style={{
+        padding:"14px 16px",borderRadius:12,marginBottom:18,
+        background:"linear-gradient(135deg, var(--claude-soft, oklch(0.95 0.05 285)), var(--surface))",
+        border:"1px solid var(--line)",fontSize:13,lineHeight:1.7,color:"var(--ink-2)"
+      }}>
+        <div style={{fontWeight:700,fontSize:14,color:"var(--ink)",marginBottom:4}}>
+          🎓 Claude 老師需要你自己的 Anthropic API Key
+        </div>
+        Key 只保存在瀏覽器 localStorage，不會傳送到 Anthropic 以外的伺服器。模型：<code style={{background:"var(--surface-3)",padding:"1px 6px",borderRadius:4,fontFamily:"'JetBrains Mono', monospace"}}>{CLAUDE_MODEL}</code>。
+        {hasSandbox && (
+          <div style={{marginTop:8,padding:"8px 10px",background:"var(--lime-soft, oklch(0.95 0.05 140))",borderRadius:8,color:"var(--lime-ink, oklch(0.4 0.14 140))",fontSize:12}}>
+            ⚡ 偵測到內建 AI 環境，不設 Key 也能使用（離開此環境後需要 Key）。
+          </div>
+        )}
+      </div>
+
+      <div className="field">
+        <label className="field-label">Anthropic API Key</label>
+        <div style={{display:"flex",gap:6}}>
+          <input
+            className="input mono"
+            type={showKey ? "text" : "password"}
+            placeholder="sk-ant-api03-..."
+            value={draft}
+            onChange={e => setDraft(e.target.value)}
+            autoComplete="off"
+            style={{flex:1,fontSize:12.5}}
+            onKeyDown={e => { if (e.key === "Enter") save(); }}
+          />
+          <button className="btn btn-secondary" onClick={() => setShowKey(s => !s)} style={{padding:"0 12px"}}>
+            {showKey ? "隱藏" : "顯示"}
+          </button>
+        </div>
+        <div className="field-help">
+          申請 Key：<a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener" style={{color:"var(--claude-ink, oklch(0.4 0.15 285))"}}>console.anthropic.com/settings/keys</a>
+        </div>
+      </div>
+
+      <div style={{
+        padding:"12px 14px",background:"var(--surface-2)",borderRadius:10,
+        fontSize:12,color:"var(--ink-3)",lineHeight:1.6,fontFamily:"'JetBrains Mono', monospace"
+      }}>
+        ⓘ 安全提醒：Key 寫在前端瀏覽器中。如果你把此檔分享給別人，他們會看到你的 Key 並可能耗用你的配額。建議只在自己的裝置上使用。
+      </div>
+    </Modal>
+  );
+}
+
+window.ClaudeSettingsModal = ClaudeSettingsModal;
 window.AIAnalysis = AIAnalysis;

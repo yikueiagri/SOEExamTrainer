@@ -583,6 +583,12 @@ function App() {
   const [showImport, setShowImport] = useStateApp(false);
   const [practiceSetup, setPracticeSetup] = useStateApp(null); // null | { source: 'bank' | 'mistakes', defaults }
   const [practiceConfig, setPracticeConfig] = useStateApp(null);
+  const [showClaudeSettings, setShowClaudeSettings] = useStateApp(false);
+  useEffectApp(() => {
+    const fn = () => setShowClaudeSettings(true);
+    window.addEventListener("__open_claude_settings", fn);
+    return () => window.removeEventListener("__open_claude_settings", fn);
+  }, []);
   const [toast, ToastView] = useToast();
 
   useEffectApp(() => { saveState(state); }, [state]);
@@ -657,7 +663,11 @@ function App() {
 
   const visibleQuestions = useMemoApp(() => {
     return subjectQuestions.filter(q => {
-      if (typeFilter !== "all" && q.type !== typeFilter) return false;
+      if (typeFilter === "flagged") {
+        if (!q.flagged) return false;
+      } else if (typeFilter !== "all" && q.type !== typeFilter) {
+        return false;
+      }
       if (tagFilter && !(q.tags||[]).includes(tagFilter)) return false;
       if (search.trim()) {
         const s = search.trim().toLowerCase();
@@ -743,10 +753,10 @@ function App() {
             <span>Gemini 老師</span>
             <span className="nav-count" style={view === "gemini" ? {background:"rgba(255,255,255,.15)",color:"#fff"} : undefined}>API</span>
           </div>
-          <div className="nav-item" title="點題目卡上的「問 Claude 老師」使用" style={{opacity:.7,cursor:"default"}}>
+          <div className="nav-item" onClick={() => { setShowClaudeSettings(true); closeNav(); }} title="點題目卡上的「問 Claude 老師」使用；點這裡設定 API Key">
             <span className="sensei-dot claude"></span>
             <span>Claude 老師</span>
-            <span className="nav-count">內建</span>
+            <span className="nav-count">設定</span>
           </div>
         </div>
 
@@ -898,7 +908,7 @@ function App() {
                 )}
               </div>
             ) : (
-              (typeFilter === "flagged" ? visibleQuestions.filter(q => q.flagged) : visibleQuestions).map((q, i) => (
+              (visibleQuestions).map((q, i) => (
                 <QuestionCard
                   key={q.id} q={q} index={i}
                   subject={activeSubject}
@@ -946,6 +956,9 @@ function App() {
           onStart={(cfg) => { setPracticeConfig(cfg); setPracticeSetup(null); setView("practice"); }}
         />
       )}
+      {showClaudeSettings && window.ClaudeSettingsModal && React.createElement(window.ClaudeSettingsModal, {
+        onClose: () => setShowClaudeSettings(false)
+      })}
       {ToastView}
     </div>
   );
