@@ -80,7 +80,7 @@ const DIAG_THEMES = [
 ];
 
 function MistakeAnalyzer({ mistakes, subjects }) {
-  const [provider, setProvider] = useStateMA(() => localStorage.getItem("soe_diag_provider") || "claude");
+  const [provider, setProvider] = useStateMA(() => localStorage.getItem("soe_diag_provider") || "gemini");
   const [state, setState] = useStateMA("idle"); // idle | loading | done | error
   const [result, setResult] = useStateMA(null);
   const [error, setError] = useStateMA(null);
