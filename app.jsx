@@ -831,6 +831,12 @@ function App() {
               )}
             </div>
             <div style={{height:24}}/>
+            {subjectQuestions.length > 0 && window.MistakeAnalyzer && (
+              <React.Fragment>
+                {React.createElement(window.MistakeAnalyzer, { mistakes: subjectQuestions, subjects: state.subjects })}
+                <div style={{height:24}}/>
+              </React.Fragment>
+            )}
             {subjectQuestions.length === 0 ? (
               <div className="empty">
                 <div className="empty-mark"><Icon.star /></div>

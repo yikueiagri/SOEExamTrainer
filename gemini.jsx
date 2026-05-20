@@ -388,4 +388,28 @@ function GeminiTeacher({ subjects, pending, onConsumePending }){
   );
 }
 
+// Generic Gemini caller exposed for cross-component use.
+async function callGeminiRaw(systemPrompt, userMsg) {
+  const key = localStorage.getItem(GEMINI_STORE + "_apiKey") || "";
+  if (!key) throw new Error("尚未設定 Gemini API Key — 請先到 sidebar「Gemini 老師」貼上 Key。");
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${key}`;
+  const payload = {
+    systemInstruction: { parts: [{ text: systemPrompt }] },
+    contents: [{ role: "user", parts: [{ text: userMsg }] }],
+    config: { thinkingConfig: { thinkingLevel: "HIGH" } },
+  };
+  const r = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  if (!r.ok) {
+    const err = await r.json().catch(() => ({}));
+    throw new Error(err?.error?.message || `HTTP ${r.status}`);
+  }
+  const data = await r.json();
+  return data.candidates?.[0]?.content?.parts?.[0]?.text || "（沒有取得回覆內容）";
+}
+window.callGeminiRaw = callGeminiRaw;
+
 window.GeminiTeacher = GeminiTeacher;

@@ -54,9 +54,9 @@ ${optsText}
 標準答案：${answer.join("、")}${userPart}`;
 }
 
-async function callClaude(userMsg) {
+// Generic Claude caller — accepts custom system prompt + max_tokens.
+async function callClaudeRaw(systemPrompt, userMsg, maxTokens = 1500) {
   const key = getClaudeKey();
-  // Prefer direct Anthropic call (works on GitHub Pages / standalone)
   if (key) {
     const r = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
@@ -68,26 +68,29 @@ async function callClaude(userMsg) {
       },
       body: JSON.stringify({
         model: CLAUDE_MODEL,
-        max_tokens: 1500,
-        system: AI_PROMPT_SYSTEM,
+        max_tokens: maxTokens,
+        system: systemPrompt,
         messages: [{ role: "user", content: userMsg }],
       }),
     });
     if (!r.ok) {
       const err = await r.json().catch(() => ({}));
-      const msg = err?.error?.message || `HTTP ${r.status}`;
-      throw new Error(msg);
+      throw new Error(err?.error?.message || `HTTP ${r.status}`);
     }
     const data = await r.json();
     return data.content?.[0]?.text || "（沒有取得回覆內容）";
   }
-  // Fallback: env-provided window.claude.complete (editor sandbox only)
   if (window.claude && window.claude.complete) {
     return await window.claude.complete({
-      messages: [{ role: "user", content: AI_PROMPT_SYSTEM + "\n\n----\n\n" + userMsg }],
+      messages: [{ role: "user", content: systemPrompt + "\n\n----\n\n" + userMsg }],
     });
   }
   throw new Error("尚未設定 Anthropic API Key — 點 sidebar 的「Claude 老師」設定一次即可。");
+}
+window.callClaudeRaw = callClaudeRaw;
+
+async function callClaude(userMsg) {
+  return callClaudeRaw(AI_PROMPT_SYSTEM, userMsg, 1500);
 }
 
 function parseAIResponse(text) {
