@@ -148,7 +148,7 @@ function GeminiTeacher({ subjects, pending, onConsumePending }){
     const payload = {
       systemInstruction: { parts: [{ text: GEMINI_SYSTEM(scope) }] },
       contents: [{ role: 'user', parts: [{ text: q }] }],
-      config: { thinkingConfig: { thinkingLevel: 'HIGH' } }
+      generationConfig: { thinkingConfig: { thinkingLevel: 'HIGH' } }
     };
 
     try{
@@ -396,7 +396,7 @@ async function callGeminiRaw(systemPrompt, userMsg) {
   const payload = {
     systemInstruction: { parts: [{ text: systemPrompt }] },
     contents: [{ role: "user", parts: [{ text: userMsg }] }],
-    config: { thinkingConfig: { thinkingLevel: "HIGH" } },
+    generationConfig: { thinkingConfig: { thinkingLevel: "HIGH" } },
   };
   const r = await fetch(url, {
     method: "POST",
