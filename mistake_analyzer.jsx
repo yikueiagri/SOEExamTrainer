@@ -150,7 +150,7 @@ function MistakeAnalyzer({ mistakes, subjects }) {
               <span className="diag-prov-dot gemini" style={{width:12,height:12}}></span>
               <div style={{flex:1}}>
                 <div style={{fontWeight:600,color:"var(--ink)"}}>Gemini 老師將為你診斷</div>
-                <div className="mono" style={{fontSize:11,color:"var(--ink-3)",marginTop:1}}>gemini-3.5-flash · thinkingLevel HIGH</div>
+                <div className="mono" style={{fontSize:11,color:"var(--ink-3)",marginTop:1}}>{window.GEMINI_MODEL || "gemini-3.5-flash"} · thinkingLevel {window.GEMINI_THINKING_LEVEL || "medium"}</div>
               </div>
             </div>
             <button className="diag-cta" onClick={run}>

@@ -589,6 +589,11 @@ function App() {
     window.addEventListener("__open_claude_settings", fn);
     return () => window.removeEventListener("__open_claude_settings", fn);
   }, []);
+  useEffectApp(() => {
+    const fn = () => { setView("gemini"); closeNav(); };
+    window.addEventListener("__goto_gemini", fn);
+    return () => window.removeEventListener("__goto_gemini", fn);
+  }, []);
   const [toast, ToastView] = useToast();
 
   useEffectApp(() => { saveState(state); }, [state]);

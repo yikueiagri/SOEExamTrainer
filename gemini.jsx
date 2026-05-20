@@ -1,10 +1,14 @@
 // Gemini 老師 — full-page Gemini-based exam solver
-// Uses gemini-3.5-flash via v1beta with thinkingLevel: HIGH
+// Uses Gemini via v1beta with the recommended medium thinking level.
 // Persists API key + last question in localStorage.
 
 const { useState: useStateG, useEffect: useEffectG, useRef: useRefG } = React;
 
 const GEMINI_STORE = "soe_gemini_v1";
+const GEMINI_MODEL = "gemini-3.5-flash";
+const GEMINI_THINKING_LEVEL = "medium";
+window.GEMINI_MODEL = GEMINI_MODEL;
+window.GEMINI_THINKING_LEVEL = GEMINI_THINKING_LEVEL;
 
 const GEMINI_SYSTEM = (scope) => `你是一位精通國營事業考試（如台電、中油、台水、經濟部聯招）的補習班名師。${scope === "auto" ? "" : `此題屬於【${scope}】考試範疇。`}請嚴格依序回答四個段落，每段使用全形方括號標題：
 
@@ -144,11 +148,11 @@ function GeminiTeacher({ subjects, pending, onConsumePending }){
 
     setBusy(true); setError(null); setResult(null);
 
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${key}`;
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${key}`;
     const payload = {
       systemInstruction: { parts: [{ text: GEMINI_SYSTEM(scope) }] },
       contents: [{ role: 'user', parts: [{ text: q }] }],
-      generationConfig: { thinkingConfig: { thinkingLevel: 'HIGH' } }
+      generationConfig: { thinkingConfig: { thinkingLevel: GEMINI_THINKING_LEVEL } }
     };
 
     try{
@@ -192,12 +196,12 @@ function GeminiTeacher({ subjects, pending, onConsumePending }){
             <span className="g-title-mark">G</span>
             Gemini 老師
           </h1>
-          <p className="page-sub">貼上任何考題，<strong>gemini-3.5-flash</strong> 會依「標準答案 → 核心觀念 → 深度解析 → 觀念導正」四步驟回答。也可以從題庫卡片按「丟給 Gemini 老師」自動帶入。</p>
+          <p className="page-sub">貼上任何考題，<strong>{GEMINI_MODEL}</strong> 會依「標準答案 → 核心觀念 → 深度解析 → 觀念導正」四步驟回答。也可以從題庫卡片按「丟給 Gemini 老師」自動帶入。</p>
         </div>
         <div className="header-actions">
           <span className="pill">
             <span className="pill-dot"></span>
-            gemini-3.5-flash · HIGH
+            {GEMINI_MODEL} · {GEMINI_THINKING_LEVEL}
           </span>
         </div>
       </div>
@@ -299,7 +303,7 @@ function GeminiTeacher({ subjects, pending, onConsumePending }){
             <div className="g-loading-spin"/>
             <div>
               <div style={{fontWeight:700,fontSize:15}}>Gemini 老師深度思考中…</div>
-              <div className="mono" style={{fontSize:12,color:"var(--ink-3)",marginTop:3}}>thinkingLevel = HIGH · 約 8–20 秒</div>
+              <div className="mono" style={{fontSize:12,color:"var(--ink-3)",marginTop:3}}>thinkingLevel = {GEMINI_THINKING_LEVEL} · 約 8–20 秒</div>
             </div>
           </div>
         )}
@@ -314,7 +318,7 @@ function GeminiTeacher({ subjects, pending, onConsumePending }){
               <div className="g-err-msg mono">{error}</div>
               {error.includes("model") && (
                 <div style={{fontSize:11.5,color:"var(--ink-3)",marginTop:6,lineHeight:1.5}}>
-                  提示：如果 gemini-3.5-flash 在你的帳號下還無法使用，可以暫時改用 gemini-2.5-flash（修改 gemini.jsx 內的 URL）。
+                  提示：如果 {GEMINI_MODEL} 在你的帳號下還無法使用，請確認 API Key 的專案權限、帳單與模型可用區域。
                 </div>
               )}
             </div>
@@ -327,7 +331,7 @@ function GeminiTeacher({ subjects, pending, onConsumePending }){
               <div>
                 <div className="g-result-title">解析結果</div>
                 <div className="mono" style={{fontSize:11.5,color:"var(--ink-3)",marginTop:3}}>
-                  {ts ? ts.toLocaleTimeString("zh-TW",{hour:"2-digit",minute:"2-digit"}) : ""} · gemini-3.5-flash · thinkingLevel HIGH
+                  {ts ? ts.toLocaleTimeString("zh-TW",{hour:"2-digit",minute:"2-digit"}) : ""} · {GEMINI_MODEL} · thinkingLevel {GEMINI_THINKING_LEVEL}
                 </div>
               </div>
               <div style={{display:"flex",gap:6}}>
@@ -392,11 +396,11 @@ function GeminiTeacher({ subjects, pending, onConsumePending }){
 async function callGeminiRaw(systemPrompt, userMsg) {
   const key = localStorage.getItem(GEMINI_STORE + "_apiKey") || "";
   if (!key) throw new Error("尚未設定 Gemini API Key — 請先到 sidebar「Gemini 老師」貼上 Key。");
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${key}`;
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${key}`;
   const payload = {
     systemInstruction: { parts: [{ text: systemPrompt }] },
     contents: [{ role: "user", parts: [{ text: userMsg }] }],
-    generationConfig: { thinkingConfig: { thinkingLevel: "HIGH" } },
+    generationConfig: { thinkingConfig: { thinkingLevel: GEMINI_THINKING_LEVEL } },
   };
   const r = await fetch(url, {
     method: "POST",
