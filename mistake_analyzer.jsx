@@ -80,15 +80,11 @@ const DIAG_THEMES = [
 ];
 
 function MistakeAnalyzer({ mistakes, subjects }) {
-  const [provider, setProvider] = useStateMA(() => localStorage.getItem("soe_diag_provider") || "gemini");
+  const provider = "gemini"; // 固定使用 Gemini 老師
   const [state, setState] = useStateMA("idle"); // idle | loading | done | error
   const [result, setResult] = useStateMA(null);
   const [error, setError] = useStateMA(null);
   const [expanded, setExpanded] = useStateMA(false);
-
-  useEffectMA(() => {
-    localStorage.setItem("soe_diag_provider", provider);
-  }, [provider]);
 
   const run = async () => {
     if (mistakes.length === 0) return;
@@ -96,14 +92,8 @@ function MistakeAnalyzer({ mistakes, subjects }) {
     setError(null);
     try {
       const userMsg = buildMistakeSummary(mistakes, subjects, 50);
-      let reply;
-      if (provider === "gemini") {
-        if (!window.callGeminiRaw) throw new Error("Gemini 模組尚未載入");
-        reply = await window.callGeminiRaw(MA_SYSTEM, userMsg);
-      } else {
-        if (!window.callClaudeRaw) throw new Error("Claude 模組尚未載入");
-        reply = await window.callClaudeRaw(MA_SYSTEM, userMsg, 2000);
-      }
+      if (!window.callGeminiRaw) throw new Error("Gemini 模組尚未載入");
+      const reply = await window.callGeminiRaw(MA_SYSTEM, userMsg);
       setResult({ sections: parseDiagSections(reply), raw: reply, at: new Date() });
       setState("done");
       setExpanded(true);
@@ -151,29 +141,16 @@ function MistakeAnalyzer({ mistakes, subjects }) {
 
         {state === "idle" && (
           <div className="diag-body">
-            <div className="diag-row">
-              <div className="diag-row-label">選擇 AI 老師</div>
-              <div className="diag-providers">
-                <button
-                  className={`diag-prov ${provider === "claude" ? "active claude" : ""}`}
-                  onClick={() => setProvider("claude")}
-                >
-                  <span className="diag-prov-dot claude"></span>
-                  <div>
-                    <div className="diag-prov-name">Claude 老師</div>
-                    <div className="diag-prov-tag mono">claude-haiku-4-5</div>
-                  </div>
-                </button>
-                <button
-                  className={`diag-prov ${provider === "gemini" ? "active gemini" : ""}`}
-                  onClick={() => setProvider("gemini")}
-                >
-                  <span className="diag-prov-dot gemini"></span>
-                  <div>
-                    <div className="diag-prov-name">Gemini 老師</div>
-                    <div className="diag-prov-tag mono">gemini-3.5-flash · HIGH</div>
-                  </div>
-                </button>
+            <div style={{
+              display:"flex",alignItems:"center",gap:12,padding:"12px 14px",
+              background:"linear-gradient(135deg, var(--gemini-soft), var(--surface))",
+              border:"1px solid oklch(0.88 0.04 30)",
+              borderRadius:12,marginBottom:14,fontSize:13,color:"var(--ink-2)"
+            }}>
+              <span className="diag-prov-dot gemini" style={{width:12,height:12}}></span>
+              <div style={{flex:1}}>
+                <div style={{fontWeight:600,color:"var(--ink)"}}>Gemini 老師將為你診斷</div>
+                <div className="mono" style={{fontSize:11,color:"var(--ink-3)",marginTop:1}}>gemini-3.5-flash · thinkingLevel HIGH</div>
               </div>
             </div>
             <button className="diag-cta" onClick={run}>
@@ -188,7 +165,7 @@ function MistakeAnalyzer({ mistakes, subjects }) {
           <div className="diag-body diag-loading">
             <div className="diag-spinner"></div>
             <div>
-              <div style={{fontWeight:700,fontSize:15}}>{provider === "claude" ? "Claude" : "Gemini"} 老師正在整理你的錯題…</div>
+              <div style={{fontWeight:700,fontSize:15}}>Gemini 老師正在整理你的錯題…</div>
               <div className="mono" style={{fontSize:11.5,color:"var(--ink-3)",marginTop:3}}>找盲點、組學習計畫，預計 10–25 秒</div>
             </div>
           </div>
@@ -199,8 +176,8 @@ function MistakeAnalyzer({ mistakes, subjects }) {
             <div className="ai-error" style={{margin:0}}>診斷失敗：{error}</div>
             <div style={{marginTop:10,display:"flex",gap:6}}>
               {/設定|api|key|尚未/i.test(error || "") && (
-                <button className="btn-mini" onClick={() => provider === "claude" ? window.openClaudeSettings?.() : window.dispatchEvent(new CustomEvent("__goto_gemini"))}>
-                  前往設定 {provider === "claude" ? "Claude" : "Gemini"} Key
+                <button className="btn-mini" onClick={() => window.dispatchEvent(new CustomEvent("__goto_gemini"))}>
+                  前往設定 Gemini Key
                 </button>
               )}
               <button className="btn-mini" onClick={run}>重試</button>
