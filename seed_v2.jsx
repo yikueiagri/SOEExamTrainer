@@ -1,760 +1,1974 @@
-// Seed v2 — 考前猜題 90 題（國英 / 企管 / 水法 各 30 題）
-// 每題有 seed_id，loadState 會自動 merge，已存在的不會重複加入。
+// Seed v2 - curated supplemental questions with seed_id for stable merging.
 
 const SEED_QUESTIONS_V2 = [
-  // ============================================================
-  // 國文及英文 — 單選 Q1-Q20
-  // ============================================================
   {
-    seed_id: "v2_lang_01", subjectId: "lang", type: "single", tags: ["啟封詞","書信禮儀","115猜題"],
-    stem: "國營事業員工撰寫商務或正式書信時，信封上的「啟封詞」攸關職場禮儀。若台水同仁寫信給「女性客戶」，下列哪一個啟封詞最不恰當？",
-    options: ["啟", "芳啟", "敬啟", "大啟"],
-    answer: ["C"],
-    explanation: "「敬啟」意指請對方「恭敬地開啟信件」，在社交與商務禮儀上對客群、長輩皆屬大不敬。",
+    "seed_id": "v2_lang_01",
+    "subjectId": "lang",
+    "type": "single",
+    "tags": [
+      "啟封詞",
+      "書信禮儀",
+      "115猜題"
+    ],
+    "stem": "國營事業員工撰寫商務或正式書信時，信封上的「啟封詞」攸關職場禮儀。若台水同仁寫信給「女性客戶」，下列哪一個啟封詞最不恰當？",
+    "options": [
+      "啟",
+      "芳啟",
+      "敬啟",
+      "大啟"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "啟封詞寫於信封收信人姓名後；「芳啟」多用於女性，「大啟／啟」可用於一般對象；「敬啟」通常為發信人信末署名用語，作啟封詞不恰當。"
   },
   {
-    seed_id: "v2_lang_02", subjectId: "lang", type: "single", tags: ["題辭","升遷","115猜題"],
-    stem: "台灣自來水公司王經理因年度績效卓越，於年中榮升為總公司處長，同仁們欲合資贈送祝賀匾額。下列題辭何者最適合用於「賀人升遷」？",
-    options: ["業紹陶朱", "青雲直上", "杏林春暖", "德業長昭"],
-    answer: ["B"],
-    explanation: "(A)賀商業開幕；(C)賀醫界開業；(D)哀悼男喪；(B)「青雲直上」形容仕途順利、迅速升遷，最符合題意。",
+    "seed_id": "v2_lang_02",
+    "subjectId": "lang",
+    "type": "single",
+    "tags": [
+      "題辭",
+      "升遷",
+      "115猜題"
+    ],
+    "stem": "台灣自來水公司王經理因年度績效卓越，於年中榮升為總公司處長，同仁們欲合資贈送祝賀匾額。下列題辭何者最適合用於「賀人升遷」？",
+    "options": [
+      "業紹陶朱",
+      "青雲直上",
+      "杏林春暖",
+      "德業長昭"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "(A)賀商業開幕；(C)賀醫界開業；(D)哀悼男喪；(B)「青雲直上」形容仕途順利、迅速升遷，最符合題意。"
   },
   {
-    seed_id: "v2_lang_03", subjectId: "lang", type: "single", tags: ["古代文學家","蘇軾","115猜題"],
-    stem: "閱讀下列這段文句，請根據情境與風格描述，判斷其評述的古代文學家是哪一位？「他的一生波瀾壯闊，雖因反對王安石新法而屢遭貶謫，最遠曾被貶至惠州與儋州。然而他生性豁達，在黃州時更寫下了流傳千古的赤壁賦與念奴嬌，其詞開創了宋代豪放派之先河。」",
-    options: ["韓愈", "柳宗元", "歐陽脩", "蘇軾"],
-    answer: ["D"],
-    explanation: "由關鍵字「反對新法」、「黃州」、「赤壁賦」、「豪放派」、「貶至惠州」可精準鎖定蘇東坡（蘇軾）。",
+    "seed_id": "v2_lang_03",
+    "subjectId": "lang",
+    "type": "single",
+    "tags": [
+      "古代文學家",
+      "蘇軾",
+      "115猜題"
+    ],
+    "stem": "閱讀下列這段文句，請根據情境與風格描述，判斷其評述的古代文學家是哪一位？「他的一生波瀾壯闊，雖因反對王安石新法而屢遭貶謫，最遠曾被貶至惠州與儋州。然而他生性豁達，在黃州時更寫下了流傳千古的赤壁賦與念奴嬌，其詞開創了宋代豪放派之先河。」",
+    "options": [
+      "韓愈",
+      "柳宗元",
+      "歐陽脩",
+      "蘇軾"
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "由關鍵字「反對新法」、「黃州」、「赤壁賦」、「豪放派」、「貶至惠州」可精準鎖定蘇東坡（蘇軾）。"
   },
   {
-    seed_id: "v2_lang_04", subjectId: "lang", type: "single", tags: ["年齡代稱","束髮","115猜題"],
-    stem: "《項脊軒志》中提到：「余自束髮讀書軒中」，文中的「束髮」借代為成童之年，通常是指幾歲？",
-    options: ["十三歲", "十五歲", "二十歲", "三十歲"],
-    answer: ["B"],
-    explanation: "古代男子年滿十五歲時束髮為髻，故「束髮」常指男子十五歲，即成童之年。",
+    "seed_id": "v2_lang_04",
+    "subjectId": "lang",
+    "type": "single",
+    "tags": [
+      "年齡代稱",
+      "束髮",
+      "115猜題"
+    ],
+    "stem": "《項脊軒志》中提到：「余自束髮讀書軒中」，文中的「束髮」借代為成童之年，通常是指幾歲？",
+    "options": [
+      "十三歲",
+      "十五歲",
+      "二十歲",
+      "三十歲"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "古代男子年滿十五歲時束髮為髻，故「束髮」常指男子十五歲，即成童之年。"
   },
   {
-    seed_id: "v2_lang_05", subjectId: "lang", type: "single", tags: ["諸子百家","墨家","115猜題"],
-    stem: "先秦諸子百家學說各具特色，若台水公司欲舉辦一場專題演講，邀請墨家學派的學者前來宣揚其核心思想，下列哪一個演講主題最適切？",
-    options: ["剛強制勝與法術勢", "無為而治與順應自然", "仁政愛民與霸道統御", "大愛無私與反對戰爭"],
-    answer: ["D"],
-    explanation: "墨家學派的核心主張為「兼愛（無差等的愛）」與「非攻（反對侵略戰爭）」。(A)法家、(B)道家、(C)儒家。",
+    "seed_id": "v2_lang_05",
+    "subjectId": "lang",
+    "type": "single",
+    "tags": [
+      "諸子百家",
+      "墨家",
+      "115猜題"
+    ],
+    "stem": "先秦諸子百家學說各具特色，若台水公司欲舉辦一場專題演講，邀請墨家學派的學者前來宣揚其核心思想，下列哪一個演講主題最適切？",
+    "options": [
+      "剛強制勝與法術勢",
+      "無為而治與順應自然",
+      "仁政愛民與霸道統御",
+      "大愛無私與反對戰爭"
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "墨家學派的核心主張為「兼愛（無差等的愛）」與「非攻（反對侵略戰爭）」。(A)法家、(B)道家、(C)儒家。"
   },
   {
-    seed_id: "v2_lang_06", subjectId: "lang", type: "single", tags: ["十三經","三禮","115猜題"],
-    stem: "十三經是儒家文化的核心經典，其中所謂的「三禮」，並不包括下列哪一部經典？",
-    options: ["《周禮》", "《儀禮》", "《小戴禮記》", "《大戴禮記》"],
-    answer: ["D"],
-    explanation: "十三經中「三禮」為《周禮》、《儀禮》、《禮記》（即《小戴禮記》）。《大戴禮記》不屬於十三經。",
+    "seed_id": "v2_lang_06",
+    "subjectId": "lang",
+    "type": "single",
+    "tags": [
+      "十三經",
+      "三禮",
+      "115猜題"
+    ],
+    "stem": "十三經是儒家文化的核心經典，其中所謂的「三禮」，並不包括下列哪一部經典？",
+    "options": [
+      "《周禮》",
+      "《儀禮》",
+      "《小戴禮記》",
+      "《大戴禮記》"
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "十三經中「三禮」為《周禮》、《儀禮》、《禮記》（即《小戴禮記》）。《大戴禮記》不屬於十三經。"
   },
   {
-    seed_id: "v2_lang_07", subjectId: "lang", type: "single", tags: ["提稱語","書信","115猜題"],
-    stem: "關於傳統書信中提稱語的使用，下列哪一個組合在日常社交禮儀中是「正確」的？",
-    options: [
+    "seed_id": "v2_lang_07",
+    "subjectId": "lang",
+    "type": "single",
+    "tags": [
+      "提稱語",
+      "書信",
+      "115猜題"
+    ],
+    "stem": "關於傳統書信中提稱語的使用，下列哪一個組合在日常社交禮儀中是「正確」的？",
+    "options": [
       "祝英台寫信給梁山伯（平輩同學），宜用「膝下」",
       "關羽寫信給張飛（結拜義弟），宜用「如晤」",
       "曾鞏寫信給歐陽脩（授業師長），宜用「惠鑒」",
-      "蘇洵寫信給蘇軾（親生兒子），宜用「硯席」",
+      "蘇洵寫信給蘇軾（親生兒子），宜用「硯席」"
     ],
-    answer: ["B"],
-    explanation: "(A)膝下用於父母；(C)師長宜用函丈、鈞鑒；(D)父母給子女宜用如晤、知悉。(B)平輩晚輩用如晤合理。",
+    "answer": [
+      "B"
+    ],
+    "explanation": "(A)膝下用於父母；(C)師長宜用函丈、鈞鑒；(D)父母給子女宜用如晤、知悉。(B)平輩晚輩用如晤合理。"
   },
   {
-    seed_id: "v2_lang_08", subjectId: "lang", type: "single", tags: ["字形辨析","齒恥","115猜題"],
-    stem: "下列文句「齒」、「恥」二字的使用，何者完全正確？",
-    options: [
+    "seed_id": "v2_lang_08",
+    "subjectId": "lang",
+    "type": "single",
+    "tags": [
+      "字形辨析",
+      "齒恥",
+      "115猜題"
+    ],
+    "stem": "下列文句「齒」、「恥」二字的使用，何者完全正確？",
+    "options": [
       "扶老濟貧是公民應盡的義務，捐款這小事不足掛恥",
       "前輩對後進無私的付出與提攜，令晚輩沒恥難忘",
       "社會上部分企業欺善怕惡的短視行為最令人不齒",
-      "為人處事應抱持著不恥相師的態度虛心求教",
+      "為人處事應抱持著不恥相師的態度虛心求教"
     ],
-    answer: ["C"],
-    explanation: "(A)應為不足掛「齒」；(B)應為沒「齒」難忘；(D)應為不「恥」下問。(C)「不齒」表極度鄙視，使用正確。",
+    "answer": [
+      "C"
+    ],
+    "explanation": "(A)應為不足掛「齒」；(B)應為沒「齒」難忘；(D)應為不「恥」下問。(C)「不齒」表極度鄙視，使用正確。"
   },
   {
-    seed_id: "v2_lang_09", subjectId: "lang", type: "single", tags: ["成語","近反義","115猜題"],
-    stem: "下列各組四字成語中，何者的詞義兩兩「相反」？",
-    options: ["噤不發聲／三緘其口", "身陷囹圄／楚囚纓冠", "國事糜爛／河清海晏", "繼志述事／克紹箕裘"],
-    answer: ["C"],
-    explanation: "(A)(B)(D)皆為近義詞。(C)國事糜爛指國家敗壞；河清海晏比喻太平盛世，兩者相反。",
+    "seed_id": "v2_lang_09",
+    "subjectId": "lang",
+    "type": "single",
+    "tags": [
+      "成語",
+      "近反義",
+      "115猜題"
+    ],
+    "stem": "下列各組四字成語中，何者的詞義兩兩「相反」？",
+    "options": [
+      "噤不發聲／三緘其口",
+      "身陷囹圄／楚囚纓冠",
+      "國事糜爛／河清海晏",
+      "繼志述事／克紹箕裘"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "(A)(B)(D)皆為近義詞。(C)國事糜爛指國家敗壞；河清海晏比喻太平盛世，兩者相反。"
   },
   {
-    seed_id: "v2_lang_10", subjectId: "lang", type: "single", tags: ["公文","期望語","115猜題"],
-    stem: "政府機關行文至公營事業（如台水公司）等不相隸屬之平行機關時，其公文結構中的期望及目的用語，依法宜使用下列何者？",
-    options: ["請 查照", "請 鑒核", "希 照辦", "呈 請核示"],
-    answer: ["A"],
-    explanation: "平行機關行文期望及目的用語一律使用「請 查照」。(B)用於上級；(C)用於下級。",
+    "seed_id": "v2_lang_10",
+    "subjectId": "lang",
+    "type": "single",
+    "tags": [
+      "公文",
+      "期望語",
+      "115猜題"
+    ],
+    "stem": "政府機關行文至公營事業（如台水公司）等不相隸屬之平行機關時，其公文結構中的期望及目的用語，依法宜使用下列何者？",
+    "options": [
+      "請 查照",
+      "請 鑒核",
+      "希 照辦",
+      "呈 請核示"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "平行機關行文期望及目的用語一律使用「請 查照」。(B)用於上級；(C)用於下級。"
   },
   {
-    seed_id: "v2_lang_11", subjectId: "lang", type: "single", tags: ["英文","單字","conserve","115猜題"],
-    stem: "Because of the prolonged drought, the local water department strongly urged all citizens to ________ water in their daily lives.",
-    options: ["consume", "conserve", "contaminate", "convert"],
-    answer: ["B"],
-    explanation: "(A)消耗；(C)污染；(D)轉換；(B) conserve（節約、保護）最符合「節約用水」。",
+    "seed_id": "v2_lang_11",
+    "subjectId": "lang",
+    "type": "single",
+    "tags": [
+      "英文",
+      "單字",
+      "conserve",
+      "115猜題"
+    ],
+    "stem": "Because of the prolonged drought, the local water department strongly urged all citizens to ________ water in their daily lives.",
+    "options": [
+      "consume",
+      "conserve",
+      "contaminate",
+      "convert"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "(A)消耗；(C)污染；(D)轉換；(B) conserve（節約、保護）最符合「節約用水」。"
   },
   {
-    seed_id: "v2_lang_12", subjectId: "lang", type: "single", tags: ["英文","單字","discount","115猜題"],
-    stem: "If customers pay their bills in cash rather than by credit card, some stores might offer a small ________.",
-    options: ["discount", "refund", "burden", "penalty"],
-    answer: ["A"],
-    explanation: "以現金付帳的優惠，店家通常提供「折扣（discount）」。(B)退款；(C)負擔；(D)罰款。",
+    "seed_id": "v2_lang_12",
+    "subjectId": "lang",
+    "type": "single",
+    "tags": [
+      "英文",
+      "單字",
+      "discount",
+      "115猜題"
+    ],
+    "stem": "If customers pay their bills in cash rather than by credit card, some stores might offer a small ________.",
+    "options": [
+      "discount",
+      "refund",
+      "burden",
+      "penalty"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "以現金付帳的優惠，店家通常提供「折扣（discount）」。(B)退款；(C)負擔；(D)罰款。"
   },
   {
-    seed_id: "v2_lang_13", subjectId: "lang", type: "single", tags: ["英文","文法","suggest","115猜題"],
-    stem: "The site manager suggested ________ the rusted underground valves immediately to prevent further water leakage.",
-    options: ["replace", "to replace", "replacing", "replaced"],
-    answer: ["C"],
-    explanation: "動詞 suggest 後若直接跟動詞作受詞，必須使用動名詞（V-ing）。",
+    "seed_id": "v2_lang_13",
+    "subjectId": "lang",
+    "type": "single",
+    "tags": [
+      "英文",
+      "文法",
+      "suggest",
+      "115猜題"
+    ],
+    "stem": "The site manager suggested ________ the rusted underground valves immediately to prevent further water leakage.",
+    "options": [
+      "replace",
+      "to replace",
+      "replacing",
+      "replaced"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "動詞 suggest 後若直接跟動詞作受詞，必須使用動名詞（V-ing）。"
   },
   {
-    seed_id: "v2_lang_14", subjectId: "lang", type: "single", tags: ["英文","文法","worth","115猜題"],
-    stem: "The technician told me that the technical manual was well worth ________ before operating the water pump.",
-    options: ["to read", "reading", "to be read", "being read"],
-    answer: ["B"],
-    explanation: "固定句型「be worth + V-ing」表示值得做某事，主動形式表被動意義。",
+    "seed_id": "v2_lang_14",
+    "subjectId": "lang",
+    "type": "single",
+    "tags": [
+      "英文",
+      "文法",
+      "worth",
+      "115猜題"
+    ],
+    "stem": "The technician told me that the technical manual was well worth ________ before operating the water pump.",
+    "options": [
+      "to read",
+      "reading",
+      "to be read",
+      "being read"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "固定句型「be worth + V-ing」表示值得做某事，主動形式表被動意義。"
   },
   {
-    seed_id: "v2_lang_15", subjectId: "lang", type: "single", tags: ["英文","介系詞","Despite","115猜題"],
-    stem: "________ his fear of heights, the senior supervisor had to inspect the water tank located on the top floor of the building.",
-    options: ["Despite", "Although", "Though", "Because"],
-    answer: ["A"],
-    explanation: "空格後為名詞短語（his fear of heights），須填介系詞。Despite 是介系詞；(B)(C)為連接詞需接子句。",
+    "seed_id": "v2_lang_15",
+    "subjectId": "lang",
+    "type": "single",
+    "tags": [
+      "英文",
+      "介系詞",
+      "Despite",
+      "115猜題"
+    ],
+    "stem": "________ his fear of heights, the senior supervisor had to inspect the water tank located on the top floor of the building.",
+    "options": [
+      "Despite",
+      "Although",
+      "Though",
+      "Because"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "空格後為名詞短語（his fear of heights），須填介系詞。Despite 是介系詞；(B)(C)為連接詞需接子句。"
   },
   {
-    seed_id: "v2_lang_16", subjectId: "lang", type: "single", tags: ["英文","被動","postpone","115猜題"],
-    stem: "Due to the upcoming path of the strong typhoon, the regular water facility maintenance match will ________ until next weekend.",
-    options: ["broadcast", "be postponed", "arrange", "introduce"],
-    answer: ["B"],
-    explanation: "主詞與動詞 postpone 為被動關係，故使用「will be postponed」。",
+    "seed_id": "v2_lang_16",
+    "subjectId": "lang",
+    "type": "single",
+    "tags": [
+      "英文",
+      "被動",
+      "postpone",
+      "115猜題"
+    ],
+    "stem": "Due to the upcoming path of the strong typhoon, the regular water facility maintenance match will ________ until next weekend.",
+    "options": [
+      "broadcast",
+      "be postponed",
+      "arrange",
+      "introduce"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "主詞與動詞 postpone 為被動關係，故使用「will be postponed」。"
   },
   {
-    seed_id: "v2_lang_17", subjectId: "lang", type: "single", tags: ["英文","倒裝","Should","115猜題"],
-    stem: "________ a major leakage occur in the main pipeline, the automated control system would instantly shut down the water supply.",
-    options: ["Should", "If", "Provided", "Unless"],
-    answer: ["A"],
-    explanation: "省略 if 的條件句倒裝：If a major leakage should occur → Should a major leakage occur。",
+    "seed_id": "v2_lang_17",
+    "subjectId": "lang",
+    "type": "single",
+    "tags": [
+      "英文",
+      "倒裝",
+      "Should",
+      "115猜題"
+    ],
+    "stem": "________ a major leakage occur in the main pipeline, the automated control system would instantly shut down the water supply.",
+    "options": [
+      "Should",
+      "If",
+      "Provided",
+      "Unless"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "省略 if 的條件句倒裝：If a major leakage should occur → Should a major leakage occur。"
   },
   {
-    seed_id: "v2_lang_18", subjectId: "lang", type: "single", tags: ["英文","連詞","neither nor","115猜題"],
-    stem: "The water contamination was so severe that ________ the local filtration plant nor the backup well could provide safe drinking water.",
-    options: ["either", "both", "neither", "not only"],
-    answer: ["C"],
-    explanation: "後方有 nor，固定搭配為「neither... nor...」（既不…也不…）。",
+    "seed_id": "v2_lang_18",
+    "subjectId": "lang",
+    "type": "single",
+    "tags": [
+      "英文",
+      "連詞",
+      "neither nor",
+      "115猜題"
+    ],
+    "stem": "The water contamination was so severe that ________ the local filtration plant nor the backup well could provide safe drinking water.",
+    "options": [
+      "either",
+      "both",
+      "neither",
+      "not only"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "後方有 nor，固定搭配為「neither... nor...」（既不…也不…）。"
   },
   {
-    seed_id: "v2_lang_19", subjectId: "lang", type: "single", tags: ["英文","情境會話","客訴","115猜題"],
-    stem: "Clerk: Good morning, Taiwan Water Corporation. How can I help you? Customer: Hello. My water bill doubled this month, but my family size didn't change at all! Clerk: ________. Let me check your historical billing record and arrange an inspection for you.",
-    options: ["It's not a big deal", "I'm sorry to hear that", "Thanks for the vote of confidence", "You can say that again"],
-    answer: ["B"],
-    explanation: "面對客戶抱怨水費暴增，第一線櫃檯人員最具同理心的應答為 I'm sorry to hear that。",
+    "seed_id": "v2_lang_19",
+    "subjectId": "lang",
+    "type": "single",
+    "tags": [
+      "英文",
+      "情境會話",
+      "客訴",
+      "115猜題"
+    ],
+    "stem": "Clerk: Good morning, Taiwan Water Corporation. How can I help you? Customer: Hello. My water bill doubled this month, but my family size didn't change at all! Clerk: ________. Let me check your historical billing record and arrange an inspection for you.",
+    "options": [
+      "It's not a big deal",
+      "I'm sorry to hear that",
+      "Thanks for the vote of confidence",
+      "You can say that again"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "面對客戶抱怨水費暴增，第一線櫃檯人員最具同理心的應答為 I'm sorry to hear that。"
   },
   {
-    seed_id: "v2_lang_20", subjectId: "lang", type: "single", tags: ["英文","情境會話","鼓勵","115猜題"],
-    stem: "A: I am extremely nervous about the upcoming final technical interview next week. B: Don't worry too much. You have prepared for months, so just stay calm and be yourself. A: ________. Your encouragement means a lot to me.",
-    options: ["Thanks for the vote of confidence", "Never mind", "I feel left out", "It depends"],
-    answer: ["A"],
-    explanation: "他人表達信任與鼓勵時最道地的應答是 Thanks for the vote of confidence。",
+    "seed_id": "v2_lang_20",
+    "subjectId": "lang",
+    "type": "single",
+    "tags": [
+      "英文",
+      "情境會話",
+      "鼓勵",
+      "115猜題"
+    ],
+    "stem": "A: I am extremely nervous about the upcoming final technical interview next week. B: Don't worry too much. You have prepared for months, so just stay calm and be yourself. A: ________. Your encouragement means a lot to me.",
+    "options": [
+      "Thanks for the vote of confidence",
+      "Never mind",
+      "I feel left out",
+      "It depends"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "他人表達信任與鼓勵時最道地的應答是 Thanks for the vote of confidence。"
   },
-
-  // ============================================================
-  // 國文及英文 — 複選 Q21-Q30
-  // ============================================================
   {
-    seed_id: "v2_lang_21", subjectId: "lang", type: "multi", tags: ["成語","近義詞","115猜題"],
-    stem: "文字的精準辨析是國文的基本功。下列各組四字成語中，哪些選項的詞義屬於「近義詞（意思相近）」？",
-    options: [
-      "揚眉瞬目／得意忘形",
+    "seed_id": "v2_lang_21",
+    "subjectId": "lang",
+    "type": "multi",
+    "tags": [
+      "成語",
+      "近義詞",
+      "115猜題"
+    ],
+    "stem": "文字的精準辨析是國文的基本功。下列各組四字成語中，哪些選項的詞義屬於「近義詞（意思相近）」？",
+    "options": [
+      "揚眉吐氣",
       "井底之蛙／管中窺豹",
       "亭亭如蓋／錯落有致",
-      "萬籟有聲／甚囂塵上",
+      "萬籟有聲／甚囂塵上"
     ],
-    answer: ["A","B"],
-    explanation: "(A)皆形容得意；(B)皆比喻見識狹小，屬近義詞。(C)不相干；(D)萬籟有聲形容極靜、甚囂塵上形容喧嚷，為反義。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "explanation": "(A)皆形容得意；(B)皆比喻見識狹小，屬近義詞。(C)不相干；(D)萬籟有聲形容極靜、甚囂塵上形容喧嚷，為反義。"
   },
   {
-    seed_id: "v2_lang_22", subjectId: "lang", type: "multi", tags: ["詩詞","節慶","115猜題"],
-    stem: "古典詩詞常隱含季節與節慶資訊。下列詩句與所對應的季節或傳統節慶，哪些選項完全正確？",
-    options: [
+    "seed_id": "v2_lang_22",
+    "subjectId": "lang",
+    "type": "multi",
+    "tags": [
+      "詩詞",
+      "節慶",
+      "115猜題"
+    ],
+    "stem": "古典詩詞常隱含季節與節慶資訊。下列詩句與所對應的季節或傳統節慶，哪些選項完全正確？",
+    "options": [
       "遠上寒山石徑斜，白雲深處有人家——春季",
       "採菊東籬下，悠然見南山——秋季",
       "爆竹聲中一歲除，春風送暖入屠蘇——端午節",
-      "獨在異鄉為異客，每逢佳節倍思親。遙知兄弟登高處，遍插茱萸少一人——重陽節",
+      "獨在異鄉為異客，每逢佳節倍思親。遙知兄弟登高處，遍插茱萸少一人——重陽節"
     ],
-    answer: ["B","D"],
-    explanation: "(A)「寒山」為秋季；(C)「一歲除、入屠蘇」為春節。(B)菊花為秋代表；(D)登高、插茱萸為重陽習俗。",
+    "answer": [
+      "B",
+      "D"
+    ],
+    "explanation": "D 若寫作「萬籟俱寂／甚囂塵上」才構成靜與喧的反義；原題 D「萬籟有聲」用語不宜作反義說明。"
   },
   {
-    seed_id: "v2_lang_23", subjectId: "lang", type: "multi", tags: ["儒墨","諸子","115猜題"],
-    stem: "儒家與墨家在戰國時期並稱為兩大「顯學」。下列關於這兩大流派核心思想與主張的比較，哪些選項正確？",
-    options: [
+    "seed_id": "v2_lang_23",
+    "subjectId": "lang",
+    "type": "multi",
+    "tags": [
+      "儒墨",
+      "諸子",
+      "115猜題"
+    ],
+    "stem": "儒家與墨家在戰國時期並稱為兩大「顯學」。下列關於這兩大流派核心思想與主張的比較，哪些選項正確？",
+    "options": [
       "墨家創始人墨子曾習儒學，後因不滿儒家繁文縟節而自創學派",
       "儒家主張「仁愛」，強調愛有差等；墨家主張「兼愛」，強調愛無差等",
       "儒家重視禮樂並提倡厚葬；墨家則提倡「非樂」並主張節葬",
-      "儒家確信天志與鬼神賞罰；墨家罕言天道並敬鬼神而遠之",
+      "儒家確信天志與鬼神賞罰；墨家罕言天道並敬鬼神而遠之"
     ],
-    answer: ["A","B","C"],
-    explanation: "(D)敘述相反：儒家「敬鬼神而遠之、罕言天道」，墨家反而設有「天志、明鬼」思想。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "explanation": "(D)敘述相反：儒家「敬鬼神而遠之、罕言天道」，墨家反而設有「天志、明鬼」思想。"
   },
   {
-    seed_id: "v2_lang_24", subjectId: "lang", type: "multi", tags: ["文學家","邀稿","115猜題"],
-    stem: "出版社欲邀請古代文學家根據其生平事蹟或人格特質撰寫相關書籍。下列編輯企劃所邀請的對象，哪些選項顯得非常適切？",
-    options: [
+    "seed_id": "v2_lang_24",
+    "subjectId": "lang",
+    "type": "multi",
+    "tags": [
+      "文學家",
+      "邀稿",
+      "115猜題"
+    ],
+    "stem": "出版社欲邀請古代文學家根據其生平事蹟或人格特質撰寫相關書籍。下列編輯企劃所邀請的對象，哪些選項顯得非常適切？",
+    "options": [
       "撰寫《分享科舉考試一舉奪魁的成功經驗》——歸有光",
       "撰寫《如何在逆境中保持豁達與樂觀開朗》——蘇軾",
       "撰寫《說服最高上司的政論與進諫絕招》——李斯",
-      "撰寫《揭露清代官場貪墨不公的另一面》——劉鶚",
+      "撰寫《揭露清代官場貪墨不公的另一面》——劉鶚"
     ],
-    answer: ["B","C","D"],
-    explanation: "(A)歸有光科舉坎坷，考十餘次才中進士，不適合寫成功經驗。(B)(C)(D)皆與其生平相符。",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "explanation": "(A)歸有光科舉坎坷，考十餘次才中進士，不適合寫成功經驗。(B)(C)(D)皆與其生平相符。"
   },
   {
-    seed_id: "v2_lang_25", subjectId: "lang", type: "multi", tags: ["書信","應酬語","115猜題"],
-    stem: "書信（應用文）的結構與用語規範非常嚴格。下列關於傳統書信中開頭應酬語或申候祝語的使用，哪些選項可用於「師長或長輩」？",
-    options: [
+    "seed_id": "v2_lang_25",
+    "subjectId": "lang",
+    "type": "multi",
+    "tags": [
+      "書信",
+      "應酬語",
+      "115猜題"
+    ],
+    "stem": "書信（應用文）的結構與用語規範非常嚴格。下列關於傳統書信中開頭應酬語或申候祝語的使用，哪些選項可用於「師長或長輩」？",
+    "options": [
       "路隔山川，神馳絳帳",
       "自違膝下，倏忽經年",
-      "不坐春風，條逾一年",
-      "仰承照拂，倍切依依",
+      "不坐春風，倏逾一年",
+      "仰承照拂，倍切依依"
     ],
-    answer: ["A","C"],
-    explanation: "(A)絳帳借代師長講學之所；(C)春風比喻師長教誨。(B)膝下專用於父母；(D)用於平輩或一般社交。",
+    "answer": [
+      "A",
+      "C"
+    ],
+    "explanation": "(A)絳帳借代師長講學之所；(C)春風比喻師長教誨。(B)膝下專用於父母；(D)用於平輩或一般社交。"
   },
   {
-    seed_id: "v2_lang_26", subjectId: "lang", type: "multi", tags: ["英文","形容詞","人格","115猜題"],
-    stem: "Jason often shows a highly professional attitude toward his job. When faced with unexpected difficulties, he always tries hard to solve them. （請選出填入空格後文意相同且文法正確的單字）",
-    options: ["mature", "positive", "passive", "responsible"],
-    answer: ["A","B","D"],
-    explanation: "(A)成熟、(B)正面積極、(D)負責任皆符合；(C) passive 被動消極相反。",
+    "seed_id": "v2_lang_26",
+    "subjectId": "lang",
+    "type": "multi",
+    "tags": [
+      "英文",
+      "形容詞",
+      "人格",
+      "115猜題"
+    ],
+    "stem": "Jason is ________. He often shows a highly professional attitude toward his job and always finishes assigned tasks responsibly. 請選出語意可通且文法正確的形容詞。",
+    "options": [
+      "mature",
+      "positive",
+      "passive",
+      "responsible"
+    ],
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "explanation": "(A)成熟、(B)正面積極、(D)負責任皆符合；(C) passive 被動消極相反。"
   },
   {
-    seed_id: "v2_lang_27", subjectId: "lang", type: "multi", tags: ["英文","連詞","因果","115猜題"],
-    stem: "The government water agency decided to implement strict water restrictions. ________, the total daily water consumption dropped by twenty percent. （請選出語意邏輯完全正確的副詞或連詞短語）",
-    options: ["On account of", "As a result", "Consequently", "Furthermore"],
-    answer: ["B","C"],
-    explanation: "(B)(C)表結果、因此，符合因果邏輯；(A)為介系詞短語不可直接接子句；(D)表遞進不符。",
+    "seed_id": "v2_lang_27",
+    "subjectId": "lang",
+    "type": "multi",
+    "tags": [
+      "英文",
+      "連詞",
+      "因果",
+      "115猜題"
+    ],
+    "stem": "The government water agency decided to implement strict water restrictions. ________, the total daily water consumption dropped by twenty percent. （請選出語意邏輯完全正確的副詞或連詞短語）",
+    "options": [
+      "On account of",
+      "As a result",
+      "Consequently",
+      "Furthermore"
+    ],
+    "answer": [
+      "B",
+      "C"
+    ],
+    "explanation": "(B)(C)表結果、因此，符合因果邏輯；(A)為介系詞短語不可直接接子句；(D)表遞進不符。"
   },
   {
-    seed_id: "v2_lang_28", subjectId: "lang", type: "multi", tags: ["英文","動詞","提升","115猜題"],
-    stem: "We all agree that we must ________ our promotional efforts. It is this common goal that helps us put aside our personal differences. （請選出符合文意「提升、加強」的及物動詞）",
-    options: ["boost", "promote", "enhance", "prohibit"],
-    answer: ["A","B","C"],
-    explanation: "boost / promote / enhance 皆有提升、推廣、加強之意；prohibit（禁止）相反。",
+    "seed_id": "v2_lang_28",
+    "subjectId": "lang",
+    "type": "multi",
+    "tags": [
+      "英文",
+      "動詞",
+      "提升",
+      "115猜題"
+    ],
+    "stem": "We all agree that we must ________ our promotional efforts. It is this common goal that helps us put aside our personal differences. （請選出符合文意「提升、加強」的及物動詞）",
+    "options": [
+      "boost",
+      "promote",
+      "enhance",
+      "prohibit"
+    ],
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "explanation": "boost / promote / enhance 皆有提升、推廣、加強之意；prohibit（禁止）相反。"
   },
   {
-    seed_id: "v2_lang_29", subjectId: "lang", type: "multi", tags: ["英文","文法","道歉","115猜題"],
-    stem: "I am so sorry ________ your window during my backyard practice session the other day. I promise to pay for the repairs. （請選出語法正確且符合對「過去發生的事」表示抱歉的結構）",
-    options: ["to have broken", "that I broke", "to break", "for breaking"],
-    answer: ["A","B","D"],
-    explanation: "(A)不定詞完成式；(B)that 子句過去式；(D)介系詞 for + 動名詞，皆可表對過去事件道歉。(C)表未來或常態。",
+    "seed_id": "v2_lang_29",
+    "subjectId": "lang",
+    "type": "multi",
+    "tags": [
+      "英文",
+      "文法",
+      "道歉",
+      "115猜題"
+    ],
+    "stem": "I am so sorry ________ your window during my backyard practice session the other day. I promise to pay for the repairs. （請選出語法正確且符合對「過去發生的事」表示抱歉的結構）",
+    "options": [
+      "to have broken",
+      "that I broke",
+      "to break",
+      "for breaking"
+    ],
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "explanation": "(A)不定詞完成式；(B)that 子句過去式；(D)介系詞 for + 動名詞，皆可表對過去事件道歉。(C)表未來或常態。"
   },
   {
-    seed_id: "v2_lang_30", subjectId: "lang", type: "multi", tags: ["英文","分詞構句","115猜題"],
-    stem: "The sudden onset of the severe drought has brought multiple domestic challenges, heavily ________ both agricultural production and urban living. （請選出文法正確之分詞構句或及物動詞選項）",
-    options: ["affecting", "impacting", "defending", "to avoid"],
-    answer: ["A","B"],
-    explanation: "後半段為分詞構句修飾前方乾旱事件，須能表「影響」的現在分詞。affect / impact 正確。",
-  },
-
-  // ============================================================
-  // 企業管理概要 — 單選 Q1-Q20
-  // ============================================================
-  {
-    seed_id: "v2_biz_01", subjectId: "biz", type: "single", tags: ["管理矩陣","管理功能","115猜題"],
-    stem: "在企業管理學的經典「管理矩陣」中，橫軸通常代表企業機能（五管），縱軸代表管理功能（POLC）。下列何者「不屬於」縱軸的管理功能？",
-    options: ["財務管理", "規劃功能", "領導功能", "控制功能"],
-    answer: ["A"],
-    explanation: "管理功能（縱軸）：規劃 P、組織 O、領導 L、控制 C。(A)財務管理屬於企業機能（橫軸）。",
-  },
-  {
-    seed_id: "v2_biz_02", subjectId: "biz", type: "single", tags: ["馬斯洛","需求層次","115猜題"],
-    stem: "依據心理學家馬斯洛（Abraham Maslow）提出的需求層次理論（Need-Hierarchy Theory），下列哪一項屬於人類生存最基礎、必須優先被滿足的需求？",
-    options: ["自我實現需求", "尊敬需求", "生理需求", "安全需求"],
-    answer: ["C"],
-    explanation: "由低至高五層，最底層為生理需求（Physiological needs）。",
+    "seed_id": "v2_lang_30",
+    "subjectId": "lang",
+    "type": "multi",
+    "tags": [
+      "英文",
+      "分詞構句",
+      "115猜題"
+    ],
+    "stem": "The sudden onset of the severe drought has brought multiple domestic challenges, heavily ________ both agricultural production and urban living. （請選出文法正確之分詞構句或及物動詞選項）",
+    "options": [
+      "affecting",
+      "impacting",
+      "defending",
+      "to avoid"
+    ],
+    "answer": [
+      "A",
+      "B"
+    ],
+    "explanation": "後半段為分詞構句修飾前方乾旱事件，須能表「影響」的現在分詞。affect / impact 正確。"
   },
   {
-    seed_id: "v2_biz_03", subjectId: "biz", type: "single", tags: ["管理倫理","分配正義","115猜題"],
-    stem: "台水公司依據每位員工整年度的具體績效、產出成果與貢獻比例來發放年終獎金，這主要是遵循管理倫理中的哪一項原則？",
-    options: ["程序正義原則", "分配正義原則", "功利主義原則", "基本權利原則"],
-    answer: ["B"],
-    explanation: "分配正義強調報酬與個人投入、績效、貢獻成正比；程序正義則強調過程公平。",
+    "seed_id": "v2_biz_01",
+    "subjectId": "biz",
+    "type": "single",
+    "tags": [
+      "管理矩陣",
+      "管理功能",
+      "115猜題"
+    ],
+    "stem": "在企業管理學的經典「管理矩陣」中，橫軸通常代表企業機能（五管），縱軸代表管理功能（POLC）。下列何者「不屬於」縱軸的管理功能？",
+    "options": [
+      "財務管理",
+      "規劃功能",
+      "領導功能",
+      "控制功能"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "管理功能（縱軸）：規劃 P、組織 O、領導 L、控制 C。(A)財務管理屬於企業機能（橫軸）。"
   },
   {
-    seed_id: "v2_biz_04", subjectId: "biz", type: "single", tags: ["行銷","通路階數","115猜題"],
-    stem: "鄉下老農民將自己種植的水果直接載到都市街邊自行販賣，不經過任何批發商或零售商。請問這在行銷管理中屬於幾階通路？",
-    options: ["三階通路", "二階通路", "一階通路", "零階通路"],
-    answer: ["D"],
-    explanation: "製造商直接銷售給最終消費者、無任何中間商，稱為零階通路（直銷）。",
+    "seed_id": "v2_biz_02",
+    "subjectId": "biz",
+    "type": "single",
+    "tags": [
+      "馬斯洛",
+      "需求層次",
+      "115猜題"
+    ],
+    "stem": "依據心理學家馬斯洛（Abraham Maslow）提出的需求層次理論（Need-Hierarchy Theory），下列哪一項屬於人類生存最基礎、必須優先被滿足的需求？",
+    "options": [
+      "自我實現需求",
+      "尊敬需求",
+      "生理需求",
+      "安全需求"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "由低至高五層，最底層為生理需求（Physiological needs）。"
   },
   {
-    seed_id: "v2_biz_05", subjectId: "biz", type: "single", tags: ["PLC","產品生命週期","115猜題"],
-    stem: "行銷經理人必須密切監控產品生命週期（PLC）。一般而言，標準的產品生命週期四大階段之發展順序何者完全正確？",
-    options: [
+    "seed_id": "v2_biz_03",
+    "subjectId": "biz",
+    "type": "single",
+    "tags": [
+      "管理倫理",
+      "分配正義",
+      "115猜題"
+    ],
+    "stem": "台水公司依據每位員工整年度的具體績效、產出成果與貢獻比例來發放年終獎金，這主要是遵循管理倫理中的哪一項原則？",
+    "options": [
+      "程序正義原則",
+      "分配正義原則",
+      "功利主義原則",
+      "基本權利原則"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "分配正義強調報酬與個人投入、績效、貢獻成正比；程序正義則強調過程公平。"
+  },
+  {
+    "seed_id": "v2_biz_04",
+    "subjectId": "biz",
+    "type": "single",
+    "tags": [
+      "行銷",
+      "通路階數",
+      "115猜題"
+    ],
+    "stem": "鄉下老農民將自己種植的水果直接載到都市街邊自行販賣，不經過任何批發商或零售商。請問這在行銷管理中屬於幾階通路？",
+    "options": [
+      "三階通路",
+      "二階通路",
+      "一階通路",
+      "零階通路"
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "製造商直接銷售給最終消費者、無任何中間商，稱為零階通路（直銷）。"
+  },
+  {
+    "seed_id": "v2_biz_05",
+    "subjectId": "biz",
+    "type": "single",
+    "tags": [
+      "PLC",
+      "產品生命週期",
+      "115猜題"
+    ],
+    "stem": "行銷經理人必須密切監控產品生命週期（PLC）。一般而言，標準的產品生命週期四大階段之發展順序何者完全正確？",
+    "options": [
       "導入期→成熟期→成長期→衰退期",
       "導入期→成長期→成熟期→衰退期",
       "成長期→成熟期→導入期→衰退期",
-      "成長期→導入期→成熟期→衰退期",
+      "成長期→導入期→成熟期→衰退期"
     ],
-    answer: ["B"],
-    explanation: "經典 PLC 曲線：導入期→成長期→成熟期→衰退期。",
+    "answer": [
+      "B"
+    ],
+    "explanation": "經典 PLC 曲線：導入期→成長期→成熟期→衰退期。"
   },
   {
-    seed_id: "v2_biz_06", subjectId: "biz", type: "single", tags: ["線性規劃","LP","115猜題"],
-    stem: "下列哪一項規劃或決策工具，最適合用來計算出生產線在多種資源有限的限制條件下，原物料投入的「最適組合」，以獲得企業最大的利潤？",
-    options: ["線性規劃 (Linear Programming)", "因素分析 (Factor Analysis)", "時間序列分析", "計畫評核術 (PERT)"],
-    answer: ["A"],
-    explanation: "線性規劃在一組線性限制條件下求目標函數（利潤最大或成本最小）之最佳解。",
+    "seed_id": "v2_biz_06",
+    "subjectId": "biz",
+    "type": "single",
+    "tags": [
+      "線性規劃",
+      "LP",
+      "115猜題"
+    ],
+    "stem": "下列哪一項規劃或決策工具，最適合用來計算出生產線在多種資源有限的限制條件下，原物料投入的「最適組合」，以獲得企業最大的利潤？",
+    "options": [
+      "線性規劃 (Linear Programming)",
+      "因素分析 (Factor Analysis)",
+      "時間序列分析",
+      "計畫評核術 (PERT)"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "線性規劃在一組線性限制條件下求目標函數（利潤最大或成本最小）之最佳解。"
   },
   {
-    seed_id: "v2_biz_07", subjectId: "biz", type: "single", tags: ["綠色企業","4R","115猜題"],
-    stem: "綠色企業（Greening Enterprise）高度強調環境保護與永續經營，其核心精神包含「4R」元素。下列哪一個單字「不屬於」傳統 4R 的核心元素？",
-    options: ["Reduce", "Remark", "Recycle", "Reuse"],
-    answer: ["B"],
-    explanation: "4R：Reduce、Reuse、Recycle、Regeneration/Recovery，不包含 Remark。",
+    "seed_id": "v2_biz_07",
+    "subjectId": "biz",
+    "type": "single",
+    "tags": [
+      "綠色企業",
+      "4R",
+      "115猜題"
+    ],
+    "stem": "綠色企業（Greening Enterprise）高度強調環境保護與永續經營，其核心精神包含「4R」元素。下列哪一個單字「不屬於」傳統 4R 的核心元素？",
+    "options": [
+      "Reduce",
+      "Remark",
+      "Recycle",
+      "Reuse"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "常見 4R 至少包含 Reduce、Reuse、Recycle，第四個 R 依教材可能為 Recovery、Regeneration 或 Replace；Remark 並非永續管理中的 4R。"
   },
   {
-    seed_id: "v2_biz_08", subjectId: "biz", type: "single", tags: ["國際貿易","貿易障礙","115猜題"],
-    stem: "各國政府為了保護國內產業，常會建立國際貿易障礙。下列哪一種政府政策「不是」建立國際貿易障礙的方法？",
-    options: ["課徵反傾銷稅", "訂定進口配額限制", "提高進口關稅率", "提供國內出口補貼"],
-    answer: ["D"],
-    explanation: "(A)(B)(C)皆限制外國商品進入；(D)出口補貼鼓勵國內商品外銷，非進口障礙。",
+    "seed_id": "v2_biz_08",
+    "subjectId": "biz",
+    "type": "single",
+    "tags": [
+      "國際貿易",
+      "貿易障礙",
+      "115猜題"
+    ],
+    "stem": "各國政府為了保護國內產業，常會建立國際貿易障礙。下列哪一種政府政策「不是」建立國際貿易障礙的方法？",
+    "options": [
+      "課徵反傾銷稅",
+      "訂定進口配額限制",
+      "提高進口關稅率",
+      "提供國內出口補貼"
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "(A)(B)(C)皆限制外國商品進入；(D)出口補貼鼓勵國內商品外銷，非進口障礙。"
   },
   {
-    seed_id: "v2_biz_09", subjectId: "biz", type: "single", tags: ["財務比率","流動比率","115猜題"],
-    stem: "財務比率中的「流動比率（Current Ratio）」能用來推測企業償還短期負債的能力。下列關於流動比率的計算公式，何者正確？",
-    options: ["（流動資產 − 存貨）／ 流動負債", "（流動負債 − 存貨）／ 流動資產", "流動資產 ／ 流動負債", "流動負債 ／ 流動資產"],
-    answer: ["C"],
-    explanation: "流動比率 = 流動資產 ÷ 流動負債。(A) 為「速動比率」計算公式。",
+    "seed_id": "v2_biz_09",
+    "subjectId": "biz",
+    "type": "single",
+    "tags": [
+      "財務比率",
+      "流動比率",
+      "115猜題"
+    ],
+    "stem": "財務比率中的「流動比率（Current Ratio）」能用來推測企業償還短期負債的能力。下列關於流動比率的計算公式，何者正確？",
+    "options": [
+      "（流動資產 − 存貨）／ 流動負債",
+      "（流動負債 − 存貨）／ 流動資產",
+      "流動資產 ／ 流動負債",
+      "流動負債 ／ 流動資產"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "流動比率 = 流動資產 ÷ 流動負債。(A) 為「速動比率」計算公式。"
   },
   {
-    seed_id: "v2_biz_10", subjectId: "biz", type: "single", tags: ["平衡計分卡","BSC","115猜題"],
-    stem: "羅伯特·卡普蘭與大衛·諾頓提出了「平衡計分卡（Balanced Scorecard, BSC）」績效管理工具。下列何者「不是」平衡計分卡所規範的四個核心衡量構面之一？",
-    options: ["學習與成長構面", "內部作業程序構面", "財務構面", "主管機關構面"],
-    answer: ["D"],
-    explanation: "BSC 四大構面：財務、顧客、內部作業程序、學習與成長，不包含主管機關。",
+    "seed_id": "v2_biz_10",
+    "subjectId": "biz",
+    "type": "single",
+    "tags": [
+      "平衡計分卡",
+      "BSC",
+      "115猜題"
+    ],
+    "stem": "羅伯特·卡普蘭與大衛·諾頓提出了「平衡計分卡（Balanced Scorecard, BSC）」績效管理工具。下列何者「不是」平衡計分卡所規範的四個核心衡量構面之一？",
+    "options": [
+      "學習與成長構面",
+      "內部作業程序構面",
+      "財務構面",
+      "主管機關構面"
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "BSC 四大構面：財務、顧客、內部作業程序、學習與成長，不包含主管機關。"
   },
   {
-    seed_id: "v2_biz_11", subjectId: "biz", type: "single", tags: ["景氣對策信號","五色燈號","115猜題"],
-    stem: "國家發展委員會常發布「景氣對策信號」（五色燈號）反映經濟變動。下列關於各燈號所代表的景氣現況敘述，何者「不正確」？",
-    options: ["藍燈表示景氣低迷", "紅燈表示景氣熱絡", "黃紅燈表示景氣穩定", "黃藍燈表示景氣欠佳、有轉弱跡象"],
-    answer: ["C"],
-    explanation: "景氣穩定以「綠燈」表示。黃紅燈代表景氣由穩定轉向熱絡（注意性燈號）。",
+    "seed_id": "v2_biz_11",
+    "subjectId": "biz",
+    "type": "single",
+    "tags": [
+      "景氣對策信號",
+      "五色燈號",
+      "115猜題"
+    ],
+    "stem": "國家發展委員會常發布「景氣對策信號」（五色燈號）反映經濟變動。下列關於各燈號所代表的景氣現況敘述，何者「不正確」？",
+    "options": [
+      "藍燈表示景氣低迷",
+      "紅燈表示景氣熱絡",
+      "黃紅燈表示景氣穩定",
+      "黃藍燈表示景氣欠佳、有轉弱跡象"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "景氣穩定以「綠燈」表示。黃紅燈代表景氣由穩定轉向熱絡（注意性燈號）。"
   },
   {
-    seed_id: "v2_biz_12", subjectId: "biz", type: "single", tags: ["BCG矩陣","波士頓矩陣","115猜題"],
-    stem: "在波士頓諮詢集團提出的「BCG 矩陣（波士頓矩陣）」商品組合分析方法中，其「縱軸（垂直軸）」主要代表什麼指標？",
-    options: ["相對市場占有率", "市場成長率", "市場獲利率", "產業競爭強度"],
-    answer: ["B"],
-    explanation: "BCG 矩陣縱軸：市場成長率；橫軸：相對市場占有率。",
+    "seed_id": "v2_biz_12",
+    "subjectId": "biz",
+    "type": "single",
+    "tags": [
+      "BCG矩陣",
+      "波士頓矩陣",
+      "115猜題"
+    ],
+    "stem": "在波士頓諮詢集團提出的「BCG 矩陣（波士頓矩陣）」商品組合分析方法中，其「縱軸（垂直軸）」主要代表什麼指標？",
+    "options": [
+      "相對市場占有率",
+      "市場成長率",
+      "市場獲利率",
+      "產業競爭強度"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "BCG 矩陣縱軸：市場成長率；橫軸：相對市場占有率。"
   },
   {
-    seed_id: "v2_biz_13", subjectId: "biz", type: "single", tags: ["EPS","財務指標","115猜題"],
-    stem: "投資人與企業公布財務報表時經常出現的「EPS」指標，其代表的財務意義為何？",
-    options: ["投資報酬率", "營業淨利率", "每股盈餘", "本益比"],
-    answer: ["C"],
-    explanation: "EPS = Earnings Per Share，每股盈餘。",
+    "seed_id": "v2_biz_13",
+    "subjectId": "biz",
+    "type": "single",
+    "tags": [
+      "EPS",
+      "財務指標",
+      "115猜題"
+    ],
+    "stem": "投資人與企業公布財務報表時經常出現的「EPS」指標，其代表的財務意義為何？",
+    "options": [
+      "投資報酬率",
+      "營業淨利率",
+      "每股盈餘",
+      "本益比"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "EPS = Earnings Per Share，每股盈餘。"
   },
   {
-    seed_id: "v2_biz_14", subjectId: "biz", type: "single", tags: ["霍桑效應","管理學派","115猜題"],
-    stem: "管理學派發展史中著名的「霍桑效應（Hawthorne Effect）」證實了，真正顯著影響組織工作績效與生產力的關鍵因素為下列何者？",
-    options: ["照明等物理環境因素", "社會及心理因素", "財務與計件薪資因素", "員工的生理結構因素"],
-    answer: ["B"],
-    explanation: "梅奧主持的霍桑實驗證實，物理環境影響不顯著，真正激發員工生產力的是被關注的心理感受與非正式組織等社會與心理因素。",
+    "seed_id": "v2_biz_14",
+    "subjectId": "biz",
+    "type": "single",
+    "tags": [
+      "霍桑效應",
+      "管理學派",
+      "115猜題"
+    ],
+    "stem": "管理學派發展史中著名的「霍桑效應（Hawthorne Effect）」證實了，真正顯著影響組織工作績效與生產力的關鍵因素為下列何者？",
+    "options": [
+      "照明等物理環境因素",
+      "社會及心理因素",
+      "財務與計件薪資因素",
+      "員工的生理結構因素"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "梅奧主持的霍桑實驗證實，物理環境影響不顯著，真正激發員工生產力的是被關注的心理感受與非正式組織等社會與心理因素。"
   },
   {
-    seed_id: "v2_biz_15", subjectId: "biz", type: "single", tags: ["FTA","自由貿易協定","115猜題"],
-    stem: "區域經濟整合是全球化趨勢。下列關於「自由貿易協定（FTA）」特性的敘述，何者「錯誤」？",
-    options: [
+    "seed_id": "v2_biz_15",
+    "subjectId": "biz",
+    "type": "single",
+    "tags": [
+      "FTA",
+      "自由貿易協定",
+      "115猜題"
+    ],
+    "stem": "區域經濟整合是全球化趨勢。下列關於「自由貿易協定（FTA）」特性的敘述，何者「錯誤」？",
+    "options": [
       "旨在降低或移除「非會員國」之間的貿易障礙",
       "由數個國家或經濟體共同達成協議",
       "旨在移除會員國彼此之間的關稅與貿易壁壘",
-      "能促進締約國之間產品與服務的自由流動",
+      "能促進締約國之間產品與服務的自由流動"
     ],
-    answer: ["A"],
-    explanation: "FTA 旨在降低「會員國（締約國）」彼此之貿易壁壘，對非會員國並無義務。",
+    "answer": [
+      "A"
+    ],
+    "explanation": "FTA 旨在降低「會員國（締約國）」彼此之貿易壁壘，對非會員國並無義務。"
   },
   {
-    seed_id: "v2_biz_16", subjectId: "biz", type: "single", tags: ["波特五力","產業分析","115猜題"],
-    stem: "邁克爾·波特（Michael Porter）教授提出的「五力模型」是分析產業環境的經典工具。下列何者「不屬於」五力模型所敘述的主要分析構面？",
-    options: ["購買者的議價能力", "替代品的替代能力", "現有市場產品的絕對強度", "潛在競爭者進入的能力"],
-    answer: ["C"],
-    explanation: "五力：現有競爭者對抗強度、潛在進入者威脅、替代品威脅、購買者議價力、供應商議價力。",
+    "seed_id": "v2_biz_16",
+    "subjectId": "biz",
+    "type": "single",
+    "tags": [
+      "波特五力",
+      "產業分析",
+      "115猜題"
+    ],
+    "stem": "邁克爾·波特（Michael Porter）教授提出的「五力模型」是分析產業環境的經典工具。下列何者「不屬於」五力模型所敘述的主要分析構面？",
+    "options": [
+      "購買者的議價能力",
+      "替代品的替代能力",
+      "現有市場產品的絕對強度",
+      "潛在競爭者進入的能力"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "五力：現有競爭者對抗強度、潛在進入者威脅、替代品威脅、購買者議價力、供應商議價力。"
   },
   {
-    seed_id: "v2_biz_17", subjectId: "biz", type: "single", tags: ["工作規範","人力資源","115猜題"],
-    stem: "企業在進行人力資源規劃時，會撰寫不同的書面說明。其中詳細記載「一位員工若要順利執行某一特定工作，所必須具備的最低資格，如所需的知識、技術、能力與學經歷」之書面說明書，稱之為：",
-    options: ["作業計畫書", "工作說明書", "工作規範（Job Specification）", "工作分析表"],
-    answer: ["C"],
-    explanation: "Job Description 記載工作內容、職責；Job Specification 記載任職該工作所需之人的最低資格（KSA）。",
+    "seed_id": "v2_biz_17",
+    "subjectId": "biz",
+    "type": "single",
+    "tags": [
+      "工作規範",
+      "人力資源",
+      "115猜題"
+    ],
+    "stem": "企業在進行人力資源規劃時，會撰寫不同的書面說明。其中詳細記載「一位員工若要順利執行某一特定工作，所必須具備的最低資格，如所需的知識、技術、能力與學經歷」之書面說明書，稱之為：",
+    "options": [
+      "作業計畫書",
+      "工作說明書",
+      "工作規範（Job Specification）",
+      "工作分析表"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "Job Description 記載工作內容、職責；Job Specification 記載任職該工作所需之人的最低資格（KSA）。"
   },
   {
-    seed_id: "v2_biz_18", subjectId: "biz", type: "single", tags: ["電子商務","B2C","115猜題"],
-    stem: "實體書店透過設立官方購物網站，讓一般消費者可以直接在網路上瀏覽、選購並下單購買書籍。這在電子商務類型中屬於哪一種？",
-    options: ["C2B", "B2C", "B2B", "C2C"],
-    answer: ["B"],
-    explanation: "企業（Business）對最終消費者（Consumer）線上銷售 = B2C。",
+    "seed_id": "v2_biz_18",
+    "subjectId": "biz",
+    "type": "single",
+    "tags": [
+      "電子商務",
+      "B2C",
+      "115猜題"
+    ],
+    "stem": "實體書店透過設立官方購物網站，讓一般消費者可以直接在網路上瀏覽、選購並下單購買書籍。這在電子商務類型中屬於哪一種？",
+    "options": [
+      "C2B",
+      "B2C",
+      "B2B",
+      "C2C"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "企業（Business）對最終消費者（Consumer）線上銷售 = B2C。"
   },
   {
-    seed_id: "v2_biz_19", subjectId: "biz", type: "single", tags: ["CRM","資訊系統","115猜題"],
-    stem: "企業在執行資訊系統規劃時，所謂的「CRM 系統」是指下列哪一種管理系統？",
-    options: ["顧客關係管理系統", "人力資源管理系統", "供應鏈管理系統", "企業資源規劃系統"],
-    answer: ["A"],
-    explanation: "CRM = Customer Relationship Management，顧客關係管理系統。",
+    "seed_id": "v2_biz_19",
+    "subjectId": "biz",
+    "type": "single",
+    "tags": [
+      "CRM",
+      "資訊系統",
+      "115猜題"
+    ],
+    "stem": "企業在執行資訊系統規劃時，所謂的「CRM 系統」是指下列哪一種管理系統？",
+    "options": [
+      "顧客關係管理系統",
+      "人力資源管理系統",
+      "供應鏈管理系統",
+      "企業資源規劃系統"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "CRM = Customer Relationship Management，顧客關係管理系統。"
   },
   {
-    seed_id: "v2_biz_20", subjectId: "biz", type: "single", tags: ["生產控制","作業管理","115猜題"],
-    stem: "生產與作業管理是企業的核心機能。以下哪一項管理決策或指標，與「生產控制（Production Control）」的關聯性最低、最無關？",
-    options: ["產品在市場上的目標定位", "製程中的製造良率", "廠房的製造生產時程", "最終產品的品質檢驗"],
-    answer: ["A"],
-    explanation: "(B)(C)(D)皆為生產與作業管理範疇；產品定位屬於行銷管理（STP）範疇。",
+    "seed_id": "v2_biz_20",
+    "subjectId": "biz",
+    "type": "single",
+    "tags": [
+      "生產控制",
+      "作業管理",
+      "115猜題"
+    ],
+    "stem": "生產與作業管理是企業的核心機能。以下哪一項管理決策或指標，與「生產控制（Production Control）」的關聯性最低、最無關？",
+    "options": [
+      "產品在市場上的目標定位",
+      "製程中的製造良率",
+      "廠房的製造生產時程",
+      "最終產品的品質檢驗"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "(B)(C)(D)皆為生產與作業管理範疇；產品定位屬於行銷管理（STP）範疇。"
   },
-
-  // ============================================================
-  // 企業管理概要 — 複選 Q21-Q30
-  // ============================================================
   {
-    seed_id: "v2_biz_21", subjectId: "biz", type: "multi", tags: ["決策偏誤","認知偏差","115猜題"],
-    stem: "管理者在做決策時常受到認知偏差的影響。下列關於決策偏誤（Decision Biases）名詞的敘述，哪些選項完全正確？",
-    options: [
+    "seed_id": "v2_biz_21",
+    "subjectId": "biz",
+    "type": "multi",
+    "tags": [
+      "決策偏誤",
+      "認知偏差",
+      "115猜題"
+    ],
+    "stem": "管理者在做決策時常受到認知偏差的影響。下列關於決策偏誤（Decision Biases）名詞的敘述，哪些選項完全正確？",
+    "options": [
       "沉沒成本謬誤：決策者在評估未來方案時，過度考慮過去已經投入且無法回收的資源",
       "承諾升級：即便已有明確證據顯示決策錯誤，決策者因面子或責任感仍持續追加資源",
       "錨定效應：決策者過度依賴最初接收到的片面資訊（第一印象），限制了後續對全面資料的客觀評估",
-      "有限理性：是指人類在大腦、資訊、時間完美的狀態下，做出的絕對利潤最大化決策",
+      "有限理性：是指人類在大腦、資訊、時間完美的狀態下，做出的絕對利潤最大化決策"
     ],
-    answer: ["A","B","C"],
-    explanation: "(D)有限理性由賽門提出，強調人類受限於資訊與時間，僅能追求「滿意方案」。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "explanation": "(D)有限理性由賽門提出，強調人類受限於資訊與時間，僅能追求「滿意方案」。"
   },
   {
-    seed_id: "v2_biz_22", subjectId: "biz", type: "multi", tags: ["4P","行銷組合","115猜題"],
-    stem: "麥卡錫（McCarthy）提出了行銷組合「4P」基本要素。下列哪些選項屬於行銷組合 4P 的核心基本要素？",
-    options: ["人員 (People)", "產品 (Product)", "定價 (Price)", "通路 (Place)"],
-    answer: ["B","C","D"],
-    explanation: "4P：Product、Price、Place、Promotion，不含 People（People 屬 7P 服務行銷延伸）。",
+    "seed_id": "v2_biz_22",
+    "subjectId": "biz",
+    "type": "multi",
+    "tags": [
+      "4P",
+      "行銷組合",
+      "115猜題"
+    ],
+    "stem": "麥卡錫（McCarthy）提出了行銷組合「4P」基本要素。下列哪些選項屬於行銷組合 4P 的核心基本要素？",
+    "options": [
+      "人員 (People)",
+      "產品 (Product)",
+      "定價 (Price)",
+      "通路 (Place)"
+    ],
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "explanation": "4P：Product、Price、Place、Promotion，不含 People（People 屬 7P 服務行銷延伸）。"
   },
   {
-    seed_id: "v2_biz_23", subjectId: "biz", type: "multi", tags: ["STP","行銷流程","115猜題"],
-    stem: "差異行銷主要採取經典的「STP 行銷」流程。下列選項中，哪些屬於 STP 流程所包含的核心內容？",
-    options: ["產品定位 (Positioning)", "善因行銷 (Cause行銷)", "目標市場區隔選定 (Targeting)", "市場區隔化 (Segmentation)"],
-    answer: ["A","C","D"],
-    explanation: "STP = Segmentation、Targeting、Positioning。善因行銷屬社會責任行銷，非 STP。",
+    "seed_id": "v2_biz_23",
+    "subjectId": "biz",
+    "type": "multi",
+    "tags": [
+      "STP",
+      "行銷流程",
+      "115猜題"
+    ],
+    "stem": "差異行銷主要採取經典的「STP 行銷」流程。下列選項中，哪些屬於 STP 流程所包含的核心內容？",
+    "options": [
+      "產品定位 (Positioning)",
+      "善因行銷 (Cause行銷)",
+      "目標市場區隔選定 (Targeting)",
+      "市場區隔化 (Segmentation)"
+    ],
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "explanation": "STP = Segmentation、Targeting、Positioning。善因行銷屬社會責任行銷，非 STP。"
   },
   {
-    seed_id: "v2_biz_24", subjectId: "biz", type: "multi", tags: ["PDCA","TQM","115猜題"],
-    stem: "企業在推行全面品質管理（TQM）時，特別強調「PDCA」持續改善循環。下列對於 PDCA 四個英文字母所代表的管理意義描述，哪些選項正確？",
-    options: ["P 指的是規劃 (Plan)", "D 指的是需求 (Demand)", "C 指的是挑戰 (Challenge)", "A 指的是矯正行動 (Action)"],
-    answer: ["A","D"],
-    explanation: "PDCA：Plan、Do、Check、Action。(B)應為 Do；(C)應為 Check。",
+    "seed_id": "v2_biz_24",
+    "subjectId": "biz",
+    "type": "multi",
+    "tags": [
+      "PDCA",
+      "TQM",
+      "115猜題"
+    ],
+    "stem": "企業在推行全面品質管理（TQM）時，特別強調「PDCA」持續改善循環。下列對於 PDCA 四個英文字母所代表的管理意義描述，哪些選項正確？",
+    "options": [
+      "P 指的是規劃 (Plan)",
+      "D 指的是需求 (Demand)",
+      "C 指的是挑戰 (Challenge)",
+      "A 指的是矯正行動 (Action)"
+    ],
+    "answer": [
+      "A",
+      "D"
+    ],
+    "explanation": "PDCA：Plan、Do、Check、Action。(B)應為 Do；(C)應為 Check。"
   },
   {
-    seed_id: "v2_biz_25", subjectId: "biz", type: "multi", tags: ["人力資源","四大範疇","115猜題"],
-    stem: "人力資源管理是企業維繫核心競爭力的關鍵。下列哪些項目屬於傳統人力資源管理的四大核心範疇？",
-    options: ["選才（招募甄選）", "用才（配置任用）", "育才（培訓發展）", "留才（薪酬績效與員工關係）"],
-    answer: ["A","B","C","D"],
-    explanation: "HRM 四大職掌：選才、育才、用才、留才，四者皆是。",
+    "seed_id": "v2_biz_25",
+    "subjectId": "biz",
+    "type": "multi",
+    "tags": [
+      "人力資源",
+      "四大範疇",
+      "115猜題"
+    ],
+    "stem": "人力資源管理是企業維繫核心競爭力的關鍵。下列哪些項目屬於傳統人力資源管理的四大核心範疇？",
+    "options": [
+      "選才（招募甄選）",
+      "用才（配置任用）",
+      "育才（培訓發展）",
+      "留才（薪酬績效與員工關係）"
+    ],
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "explanation": "HRM 四大職掌：選才、育才、用才、留才，四者皆是。"
   },
   {
-    seed_id: "v2_biz_26", subjectId: "biz", type: "multi", tags: ["多角化","企業擴張","115猜題"],
-    stem: "多角化經營（Diversification）是企業擴張的常見策略。關於企業採取多角化經營的敘述，下列哪些選項正確？",
-    options: [
+    "seed_id": "v2_biz_26",
+    "subjectId": "biz",
+    "type": "multi",
+    "tags": [
+      "多角化",
+      "企業擴張",
+      "115猜題"
+    ],
+    "stem": "下列何者屬於企業擴張與成長策略？",
+    "options": [
       "小型企業通常比大型企業更容易自資本市場獲得充裕資金以進行多角化新投資",
       "垂直整合（包括前向整合與後向整合）會為企業帶進全新領域的經營範疇",
       "透過跨足不同產業建立起範疇經濟，形成「綜效（Synergy）」可以增加企業價值",
-      "企業透過在不同產業的投資經營，分散風險，可以規避單一產業景氣榮枯的系統性衝擊",
+      "企業透過在不同產業的投資經營，分散風險，可以規避單一產業景氣榮枯的系統性衝擊"
     ],
-    answer: ["B","C","D"],
-    explanation: "(A)錯誤，大型企業通常在資本市場擁有更好信譽，較容易取得多角化資金。",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "explanation": "(A)錯誤，大型企業通常在資本市場擁有更好信譽，較容易取得多角化資金。"
   },
   {
-    seed_id: "v2_biz_27", subjectId: "biz", type: "multi", tags: ["期望理論","Vroom","115猜題"],
-    stem: "弗洛姆（Victor Vroom）提出了「期望理論（Expectancy Theory）」來解釋員工的工作動機。期望理論認為動機是由哪三個核心要素相乘而得？",
-    options: [
+    "seed_id": "v2_biz_27",
+    "subjectId": "biz",
+    "type": "multi",
+    "tags": [
+      "期望理論",
+      "Vroom",
+      "115猜題"
+    ],
+    "stem": "弗洛姆（Victor Vroom）提出了「期望理論（Expectancy Theory）」來解釋員工的工作動機。期望理論認為動機是由哪三個核心要素相乘而得？",
+    "options": [
       "期望 (Expectancy)：努力能達成績效的機率",
       "工具高度 (Instrumentality)：達成績效能獲得報酬的機率",
       "效價 (Valence)：該項報酬對員工個人的吸引力程度",
-      "公平性 (Equity)：自身投入回報比與他人比較的心理感受",
+      "公平性 (Equity)：自身投入回報比與他人比較的心理感受"
     ],
-    answer: ["A","B","C"],
-    explanation: "期望理論公式：動機 = E × I × V。公平性屬於亞當斯公平理論。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "explanation": "期望理論公式：動機 = E × I × V。公平性屬於亞當斯公平理論。"
   },
   {
-    seed_id: "v2_biz_28", subjectId: "biz", type: "multi", tags: ["PEST","總體環境","115猜題"],
-    stem: "企業常用「PEST 分析」來全面評估外部的總體環境。下列選項中，何者屬於 PEST 分析所涵蓋的總體環境維度？",
-    options: ["政治法律環境 (Political)", "經濟環境 (Economic)", "社會文化環境 (Social)", "科技環境 (Technological)"],
-    answer: ["A","B","C","D"],
-    explanation: "PEST：Political、Economic、Social、Technological，四者皆是。",
+    "seed_id": "v2_biz_28",
+    "subjectId": "biz",
+    "type": "multi",
+    "tags": [
+      "PEST",
+      "總體環境",
+      "115猜題"
+    ],
+    "stem": "下列選項中，哪些屬於 PEST 分析所涵蓋的總體環境維度？",
+    "options": [
+      "政治法律環境 (Political)",
+      "經濟環境 (Economic)",
+      "社會文化環境 (Social)",
+      "科技環境 (Technological)"
+    ],
+    "answer": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "explanation": "PEST：Political、Economic、Social、Technological，四者皆是。"
   },
   {
-    seed_id: "v2_biz_29", subjectId: "biz", type: "multi", tags: ["電子商務","B2B","B2C","115猜題"],
-    stem: "美國電子商務白皮書在對電子商務進行最基礎的分類時，主要劃分為哪兩大經典的核心大類？",
-    options: ["企業對企業的電子商務 (B2B)", "消費者對消費者的電子商務 (C2C)", "企業對消費者的電子商務 (B2C)", "消費者對企業的電子商務 (C2B)"],
-    answer: ["A","C"],
-    explanation: "美國電子商務白皮書原始兩大分類：B2B 與 B2C。",
+    "seed_id": "v2_biz_29",
+    "subjectId": "biz",
+    "type": "multi",
+    "tags": [
+      "電子商務",
+      "B2B",
+      "B2C",
+      "115猜題"
+    ],
+    "stem": "美國電子商務白皮書在對電子商務進行最基礎的分類時，主要劃分為哪兩大經典的核心大類？",
+    "options": [
+      "企業對企業的電子商務 (B2B)",
+      "消費者對消費者的電子商務 (C2C)",
+      "企業對消費者的電子商務 (B2C)",
+      "消費者對企業的電子商務 (C2B)"
+    ],
+    "answer": [
+      "A",
+      "C"
+    ],
+    "explanation": "美國電子商務白皮書原始兩大分類：B2B 與 B2C。"
   },
   {
-    seed_id: "v2_biz_30", subjectId: "biz", type: "multi", tags: ["4R","綠色企業","115猜題"],
-    stem: "現代企業積極響應節能減碳，推動環境永續。下列關於綠色企業 4R 精神的具體實踐策略，哪些選項完全正確？",
-    options: [
+    "seed_id": "v2_biz_30",
+    "subjectId": "biz",
+    "type": "multi",
+    "tags": [
+      "4R",
+      "綠色企業",
+      "115猜題"
+    ],
+    "stem": "現代企業積極響應節能減碳，推動環境永續。下列關於綠色企業 4R 精神的具體實踐策略，哪些選項完全正確？",
+    "options": [
       "辦公室推行無紙化數位公文，屬於 Reduce（減少使用）",
       "將處理過符合標準的製程廢水引入洗街、灑水，屬於 Reuse（重複使用）",
       "設置寶特瓶與廢紙分類回收桶送往再生廠，屬於 Recycle（循環回收）",
-      "食品廠為了增加口感而大量添加人工化學調味料，屬於 Regeneration（再生）",
+      "食品廠為了增加口感而大量添加人工化學調味料，屬於 Regeneration（再生）"
     ],
-    answer: ["A","B","C"],
-    explanation: "(D)食品廠添加化學調味料與永續 4R 無關，且違反企業社會責任。",
-  },
-
-  // ============================================================
-  // 自來水法 — 單選 Q1-Q20
-  // ============================================================
-  {
-    seed_id: "v2_water_01", subjectId: "water", type: "single", tags: ["第2條","主管機關","115猜題"],
-    stem: "依《自來水法》第2條規定，自來水事業之主管機關，在中央應為下列哪一個特定機關？",
-    options: ["內政部", "環境保護部", "衛生福利部", "水利主管機關"],
-    answer: ["D"],
-    explanation: "自來水法第2條：在中央為水利主管機關（即經濟部水利署）。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "explanation": "(D)食品廠添加化學調味料與永續 4R 無關，且違反企業社會責任。"
   },
   {
-    seed_id: "v2_water_02", subjectId: "water", type: "single", tags: ["第7條","經營型態","115猜題"],
-    stem: "依《自來水法》第7條規定，自來水事業為攸關國民基本民生之重要公用事業，其在法律規定上的基本經營型態原則為何？",
-    options: ["絕對禁止民營，一律公營", "以民營為原則，並得准許公營", "採取公私合營，不得單獨公營", "以公營為原則，並得准許民營"],
-    answer: ["D"],
-    explanation: "自來水法第7條：自來水事業為公用事業，以公營為原則，並得准許民營。",
+    "seed_id": "v2_water_01",
+    "subjectId": "water",
+    "type": "single",
+    "tags": [
+      "第2條",
+      "主管機關",
+      "115猜題"
+    ],
+    "stem": "依《自來水法》第2條規定，自來水事業之主管機關，在中央應為下列哪一個特定機關？",
+    "options": [
+      "內政部",
+      "環境保護部",
+      "衛生福利部",
+      "水利主管機關"
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "自來水法第2條：在中央為水利主管機關（即經濟部水利署）。"
   },
   {
-    seed_id: "v2_water_03", subjectId: "water", type: "single", tags: ["專營權","第28條","115猜題"],
-    stem: "依《自來水法》第28條規定，自來水事業經主管機關核准取得專營權後，其發給之自來水事業專營權證，其「專營權之有效期間」法定為多久？",
-    options: ["十年", "二十年", "三十年", "五十年"],
-    answer: ["C"],
-    explanation: "自來水法第28條：專營權之有效期間為三十年。",
+    "seed_id": "v2_water_02",
+    "subjectId": "water",
+    "type": "single",
+    "tags": [
+      "第7條",
+      "經營型態",
+      "115猜題"
+    ],
+    "stem": "依《自來水法》第7條規定，自來水事業為攸關國民基本民生之重要公用事業，其在法律規定上的基本經營型態原則為何？",
+    "options": [
+      "絕對禁止民營，一律公營",
+      "以民營為原則，並得准許公營",
+      "採取公私合營，不得單獨公營",
+      "以公營為原則，並得准許民營"
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "自來水法第7條：自來水事業為公用事業，以公營為原則，並得准許民營。"
   },
   {
-    seed_id: "v2_water_04", subjectId: "water", type: "single", tags: ["營業章程","一度水","115猜題"],
-    stem: "依《台灣自來水公司營業章程》第4條與第22條規定，用戶用水量以度數計算。法律或章程所稱自來水「一度」之水量，其具體標準體積為何？",
-    options: ["每一立方公尺", "每十立方公尺", "每百立方公尺", "每千立方公尺"],
-    answer: ["A"],
-    explanation: "營業章程第22條：每立方公尺水量為一度。",
+    "seed_id": "v2_water_03",
+    "subjectId": "water",
+    "type": "single",
+    "tags": [
+      "專營權",
+      "第28條",
+      "115猜題"
+    ],
+    "stem": "依《自來水法》第28條規定，自來水事業經主管機關核准取得專營權後，其發給之自來水事業專營權證，其「專營權之有效期間」法定為多久？",
+    "options": [
+      "十年",
+      "二十年",
+      "三十年",
+      "五十年"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "自來水法第28條：專營權之有效期間為三十年。"
   },
   {
-    seed_id: "v2_water_05", subjectId: "water", type: "single", tags: ["供水種類","章程第4條","115猜題"],
-    stem: "依《台灣自來水公司營業章程》第4條規定，台水公司法定的「供水種類」共有六種。下列哪一種用水「不屬於」該條文所列舉的六種供水種類之一？",
-    options: ["船舶用水", "臨時用水", "農業用水", "市政公共用水"],
-    answer: ["C"],
-    explanation: "六種供水：普通、工業、商業、船舶、市政公共、臨時用水，不含農業用水。",
+    "seed_id": "v2_water_04",
+    "subjectId": "water",
+    "type": "single",
+    "tags": [
+      "營業章程",
+      "一度水",
+      "115猜題"
+    ],
+    "stem": "依《台灣自來水公司營業章程》第4條與第22條規定，用戶用水量以度數計算。法律或章程所稱自來水「一度」之水量，其具體標準體積為何？",
+    "options": [
+      "每一立方公尺",
+      "每十立方公尺",
+      "每百立方公尺",
+      "每千立方公尺"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "營業章程第22條：每立方公尺水量為一度。"
   },
   {
-    seed_id: "v2_water_06", subjectId: "water", type: "single", tags: ["自用設備","第21條","115猜題"],
-    stem: "依《自來水法》第21條規定，所稱「自用自來水設備」，係指專供自用之自來水設備，其出水能力（出水量）每日必須在多少立方公尺以上者？",
-    options: ["三十立方公尺", "四十立方公尺", "五十立方公尺", "六十立方公尺"],
-    answer: ["A"],
-    explanation: "自來水法第21條：專供自用且出水量每日在三十立方公尺以上者。",
+    "seed_id": "v2_water_05",
+    "subjectId": "water",
+    "type": "single",
+    "tags": [
+      "供水種類",
+      "章程第4條",
+      "115猜題"
+    ],
+    "stem": "依《台灣自來水公司營業章程》第4條規定，台水公司法定的「供水種類」共有六種。下列哪一種用水「不屬於」該條文所列舉的六種供水種類之一？",
+    "options": [
+      "船舶用水",
+      "臨時用水",
+      "農業用水",
+      "市政公共用水"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "六種供水：普通、工業、商業、船舶、市政公共、臨時用水，不含農業用水。"
   },
   {
-    seed_id: "v2_water_07", subjectId: "water", type: "single", tags: ["臨時用水","保證金","115猜題"],
-    stem: "依《台灣自來水公司營業章程》第38條規定，申請臨時用水者應繳付水費保證金。該保證金之數額，依法應以預估幾個月之用水水費為計收標準？",
-    options: ["一個月", "二個月", "三個月", "六個月"],
-    answer: ["B"],
-    explanation: "營業章程第38條：保證金數額以預估二個月用水之水費為準。",
+    "seed_id": "v2_water_06",
+    "subjectId": "water",
+    "type": "single",
+    "tags": [
+      "自用設備",
+      "第21條",
+      "115猜題"
+    ],
+    "stem": "依《自來水法》第21條規定，所稱「自用自來水設備」，係指專供自用之自來水設備，其出水能力（出水量）每日必須在多少立方公尺以上者？",
+    "options": [
+      "三十立方公尺",
+      "四十立方公尺",
+      "五十立方公尺",
+      "六十立方公尺"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "自來水法第21條：專供自用且出水量每日在三十立方公尺以上者。"
   },
   {
-    seed_id: "v2_water_08", subjectId: "water", type: "single", tags: ["停水","欠費","催繳","115猜題"],
-    stem: "依《台灣自來水公司營業章程》第39條規定，用戶若有欠繳應付各項費用之情事，經限期催繳仍不清付者，欠費逾期達多久時間，台水公司得予停止供水？",
-    options: ["逾期二個星期", "逾期一個月", "逾期二個月", "逾期三個月"],
-    answer: ["C"],
-    explanation: "營業章程第39條：欠繳應付各費逾期二個月，經限期催繳仍不清付者，得予停止供水。",
+    "seed_id": "v2_water_07",
+    "subjectId": "water",
+    "type": "single",
+    "tags": [
+      "臨時用水",
+      "保證金",
+      "115猜題"
+    ],
+    "stem": "依《台灣自來水公司營業章程》第38條規定，申請臨時用水者應繳付水費保證金。該保證金之數額，依法應以預估幾個月之用水水費為計收標準？",
+    "options": [
+      "一個月",
+      "二個月",
+      "三個月",
+      "六個月"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "營業章程第38條：保證金數額以預估二個月用水之水費為準。"
   },
   {
-    seed_id: "v2_water_09", subjectId: "water", type: "single", tags: ["遲延費","寬限期","115猜題"],
-    stem: "依《台灣自來水公司營業章程》第33條規定，自來水用戶收到應繳水費通知後，應於繳費期限內繳付。若用戶逾繳費期限在幾日內繳費者，可免計遲延繳付費？",
-    options: ["七天內", "十天內", "十四天內", "二十一天內"],
-    answer: ["A"],
-    explanation: "營業章程第33條：逾繳費期限七天內繳費者免計遲延繳付費。",
+    "seed_id": "v2_water_08",
+    "subjectId": "water",
+    "type": "single",
+    "tags": [
+      "停水",
+      "欠費",
+      "催繳",
+      "115猜題"
+    ],
+    "stem": "依《台灣自來水公司營業章程》第39條規定，用戶若有欠繳應付各項費用之情事，經限期催繳仍不清付者，欠費逾期達多久時間，台水公司得予停止供水？",
+    "options": [
+      "逾期二個星期",
+      "逾期一個月",
+      "逾期二個月",
+      "逾期三個月"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "營業章程第39條：欠繳應付各費逾期二個月，經限期催繳仍不清付者，得予停止供水。"
   },
   {
-    seed_id: "v2_water_10", subjectId: "water", type: "single", tags: ["遲延費","加收比例","115猜題"],
-    stem: "依《台灣自來水公司營業章程》第33條規定，用戶逾繳費期限若已進入「第十五天起」才前往繳費者，台水公司依法應按應繳水費之百分之幾加收遲延繳付費？",
-    options: ["百分之一", "百分之二", "百分之三", "百分之五"],
-    answer: ["B"],
-    explanation: "營業章程第33條：第8-14天加收1%；第十五天起繳費者按應繳水費 2% 加收遲延繳付費。",
+    "seed_id": "v2_water_09",
+    "subjectId": "water",
+    "type": "single",
+    "tags": [
+      "遲延費",
+      "寬限期",
+      "115猜題"
+    ],
+    "stem": "依《台灣自來水公司營業章程》第33條規定，自來水用戶收到應繳水費通知後，應於繳費期限內繳付。若用戶逾繳費期限在幾日內繳費者，可免計遲延繳付費？",
+    "options": [
+      "七天內",
+      "十天內",
+      "十四天內",
+      "二十一天內"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "營業章程第33條：逾繳費期限七天內繳費者免計遲延繳付費。"
   },
   {
-    seed_id: "v2_water_11", subjectId: "water", type: "single", tags: ["停水","基本費扣減","115猜題"],
-    stem: "依《台灣自來水公司營業章程》第32條規定，本公司因不可抗力之事由（如天災裂管）致停止供水，連續超過多少小時以上者，當月基本費應按停水日數比例扣減？",
-    options: ["十二小時", "十八小時", "二十四小時", "四十八小時"],
-    answer: ["C"],
-    explanation: "營業章程第32條：連續超過二十四小時者，當月基本費按停水日數比例扣減。",
+    "seed_id": "v2_water_10",
+    "subjectId": "water",
+    "type": "single",
+    "tags": [
+      "遲延費",
+      "加收比例",
+      "115猜題"
+    ],
+    "stem": "依《台灣自來水公司營業章程》第33條規定，用戶逾繳費期限若已進入「第十五天起」才前往繳費者，台水公司依法應按應繳水費之百分之幾加收遲延繳付費？",
+    "options": [
+      "百分之一",
+      "百分之二",
+      "百分之三",
+      "百分之五"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "營業章程第33條：第8-14天加收1%；第十五天起繳費者按應繳水費 2% 加收遲延繳付費。"
   },
   {
-    seed_id: "v2_water_12", subjectId: "water", type: "single", tags: ["停水","公告","115猜題"],
-    stem: "依《自來水法》第62條及營業章程第5條規定，台水公司因工程或災害需停水，若有特殊情形必須「連續停水」達多久以上時，應先申請所在地主管機關核准，並公告周知？",
-    options: ["十二小時以上", "二十四小時以上", "三十六小時以上", "四十八小時以上"],
-    answer: ["A"],
-    explanation: "自來水法第62條：連續停水達十二小時以上或定時供水者，應先申請主管機關核准並公告周知。",
+    "seed_id": "v2_water_11",
+    "subjectId": "water",
+    "type": "single",
+    "tags": [
+      "停水",
+      "基本費扣減",
+      "115猜題"
+    ],
+    "stem": "依《台灣自來水公司營業章程》第32條規定，本公司因不可抗力之事由（如天災裂管）致停止供水，連續超過多少小時以上者，當月基本費應按停水日數比例扣減？",
+    "options": [
+      "十二小時",
+      "十八小時",
+      "二十四小時",
+      "四十八小時"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "營業章程第32條：連續超過二十四小時者，當月基本費按停水日數比例扣減。"
   },
   {
-    seed_id: "v2_water_13", subjectId: "water", type: "single", tags: ["量水器","故障","大用戶","115猜題"],
-    stem: "依《台灣自來水公司營業章程》第25條規定，若量水器發生故障致計量不準，台水公司對於「大用水戶及機關用戶」核算水費時，應按該用戶失效前幾期之正常用水平均度數核算？",
-    options: ["失效前一期", "失效前兩期", "失效前三期", "失效前六期"],
-    answer: ["C"],
-    explanation: "營業章程第25條：一般用戶按前兩期；大用水戶及機關用戶按失效前三期之平均度數核算。",
+    "seed_id": "v2_water_12",
+    "subjectId": "water",
+    "type": "single",
+    "tags": [
+      "停水",
+      "公告",
+      "115猜題"
+    ],
+    "stem": "依《自來水法》第62條及營業章程第5條規定，台水公司因工程或災害需停水，若有特殊情形必須「連續停水」達多久以上時，應先申請所在地主管機關核准，並公告周知？",
+    "options": [
+      "十二小時以上",
+      "二十四小時以上",
+      "三十六小時以上",
+      "四十八小時以上"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "自來水法第62條：連續停水達十二小時以上或定時供水者，應先申請主管機關核准並公告周知。"
   },
   {
-    seed_id: "v2_water_14", subjectId: "water", type: "single", tags: ["違規用水","追收","115猜題"],
-    stem: "依《台灣自來水公司營業章程》第35條規定，用戶若未經申請，私自變更用水用途，且變更後之費率高於變更前者，台水公司依法得視情節追收水費差額，但最高以幾個月為限？",
-    options: ["三個月", "四個月", "五個月", "六個月"],
-    answer: ["D"],
-    explanation: "營業章程第35條：得視情節追收水費差額，最高以六個月為限。",
+    "seed_id": "v2_water_13",
+    "subjectId": "water",
+    "type": "single",
+    "tags": [
+      "量水器",
+      "故障",
+      "大用戶",
+      "115猜題"
+    ],
+    "stem": "依《台灣自來水公司營業章程》第25條規定，若量水器發生故障致計量不準，台水公司對於「大用水戶及機關用戶」核算水費時，應按該用戶失效前幾期之正常用水平均度數核算？",
+    "options": [
+      "失效前一期",
+      "失效前兩期",
+      "失效前三期",
+      "失效前六期"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "營業章程第25條：一般用戶按前兩期；大用水戶及機關用戶按失效前三期之平均度數核算。"
   },
   {
-    seed_id: "v2_water_15", subjectId: "water", type: "single", tags: ["市政用水","減收","115猜題"],
-    stem: "依《台灣自來水公司營業章程》第36條規定，有關市政公共用水之範圍有明確規範，其市政公共用水之水費，依法應按普通用水水價給予如何之優待？",
-    options: ["減收百分之二十", "減收百分之三十", "減收百分之五十", "全額免收水費"],
-    answer: ["C"],
-    explanation: "營業章程第36條：市政公共用水之水費，按普通用水水價減收百分之五十。",
+    "seed_id": "v2_water_14",
+    "subjectId": "water",
+    "type": "single",
+    "tags": [
+      "違規用水",
+      "追收",
+      "115猜題"
+    ],
+    "stem": "依《台灣自來水公司營業章程》第35條規定，用戶若未經申請，私自變更用水用途，且變更後之費率高於變更前者，台水公司依法得視情節追收水費差額，但最高以幾個月為限？",
+    "options": [
+      "三個月",
+      "四個月",
+      "五個月",
+      "六個月"
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "營業章程第35條：得視情節追收水費差額，最高以六個月為限。"
   },
   {
-    seed_id: "v2_water_16", subjectId: "water", type: "single", tags: ["臨時用水","違章","加收","115猜題"],
-    stem: "依《台灣自來水公司營業章程》第37條規定，臨時用水有不同的分類與計費標準。其中關於「經前臺灣省政府核准之違章建築用水」，其水費應按普通用水水價加收百分之幾？",
-    options: ["加收百分之二十", "加收百分之三十", "加收百分之四十", "加收百分之五十"],
-    answer: ["A"],
-    explanation: "營業章程第37條：違章臨時用水加收20%；其餘臨時用水均加收50%。",
+    "seed_id": "v2_water_15",
+    "subjectId": "water",
+    "type": "single",
+    "tags": [
+      "市政用水",
+      "減收",
+      "115猜題"
+    ],
+    "stem": "依《台灣自來水公司營業章程》第36條規定，有關市政公共用水之範圍有明確規範，其市政公共用水之水費，依法應按普通用水水價給予如何之優待？",
+    "options": [
+      "減收百分之二十",
+      "減收百分之三十",
+      "減收百分之五十",
+      "全額免收水費"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "營業章程第36條：市政公共用水之水費，按普通用水水價減收百分之五十。"
   },
   {
-    seed_id: "v2_water_17", subjectId: "water", type: "single", tags: ["水籍註銷","115猜題"],
-    stem: "依《台灣自來水公司營業章程》第9條規定，用戶若辦理停用或被停止供水，若逾期達多久時間仍未申請復用者，台水公司得逕行註銷其水籍？",
-    options: ["逾期半年", "逾期一年", "逾期二年", "逾期三年"],
-    answer: ["C"],
-    explanation: "營業章程第9條：停用或停止供水逾二年未復用，得註銷其水籍。",
+    "seed_id": "v2_water_16",
+    "subjectId": "water",
+    "type": "single",
+    "tags": [
+      "臨時用水",
+      "違章",
+      "加收",
+      "115猜題"
+    ],
+    "stem": "依《台灣自來水公司營業章程》第37條規定，臨時用水有不同的分類與計費標準。其中關於「經前臺灣省政府核准之違章建築用水」，其水費應按普通用水水價加收百分之幾？",
+    "options": [
+      "加收百分之二十",
+      "加收百分之三十",
+      "加收百分之四十",
+      "加收百分之五十"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "營業章程第37條：違章臨時用水加收20%；其餘臨時用水均加收50%。"
   },
   {
-    seed_id: "v2_water_18", subjectId: "water", type: "single", tags: ["超收","罰鍰","第104條","115猜題"],
-    stem: "依《自來水法》第104條規定，自來水事業於法令核定之營業規則外，若擅自向自來水用戶增收、收取任何費用者，主管機關應處其超收總額幾倍之罰鍰？",
-    options: ["一倍", "二倍", "三倍", "五倍"],
-    answer: ["C"],
-    explanation: "自來水法第104條：於法令核定之營業規則外向用戶收取任何費用者，處其超收總額三倍之罰鍰。",
+    "seed_id": "v2_water_17",
+    "subjectId": "water",
+    "type": "single",
+    "tags": [
+      "水籍註銷",
+      "115猜題"
+    ],
+    "stem": "依《台灣自來水公司營業章程》第9條規定，用戶若辦理停用或被停止供水，若逾期達多久時間仍未申請復用者，台水公司得逕行註銷其水籍？",
+    "options": [
+      "逾期半年",
+      "逾期一年",
+      "逾期二年",
+      "逾期三年"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "營業章程第9條：停用或停止供水逾二年未復用，得註銷其水籍。"
   },
   {
-    seed_id: "v2_water_19", subjectId: "water", type: "single", tags: ["竊水","刑期","第98條","115猜題"],
-    stem: "依《自來水法》第98條規定，凡符合法規所列舉之特定竊水行為者，即構成刑事犯罪，依法可處幾年以下有期徒刑、拘役或五百元以下罰金？",
-    options: ["一年以下", "二年以下", "三年以下", "五年以下"],
-    answer: ["D"],
-    explanation: "自來水法第98條：竊水行為人處五年以下有期徒刑、拘役或五百元以下罰金。",
+    "seed_id": "v2_water_18",
+    "subjectId": "water",
+    "type": "single",
+    "tags": [
+      "超收",
+      "罰鍰",
+      "第104條",
+      "115猜題"
+    ],
+    "stem": "依《自來水法》第104條規定，自來水事業於法令核定之營業規則外，若擅自向自來水用戶增收、收取任何費用者，主管機關應處其超收總額幾倍之罰鍰？",
+    "options": [
+      "一倍",
+      "二倍",
+      "三倍",
+      "五倍"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "自來水法第104條：於法令核定之營業規則外向用戶收取任何費用者，處其超收總額三倍之罰鍰。"
   },
   {
-    seed_id: "v2_water_20", subjectId: "water", type: "single", tags: ["竊水","追償","第71條","115猜題"],
-    stem: "依《自來水法》第71條及營業章程第40條規定，對於確認有竊水行為之用戶，自來水事業除得依法告訴及停水外，並得向其追償多久期間之水費？",
-    options: ["三個月以上半年以下", "三個月以上一年以下", "六個月以上一年以下", "一年以上二年以下"],
-    answer: ["B"],
-    explanation: "自來水法第71條：對於竊水者追償三個月以上一年以下之水費。",
+    "seed_id": "v2_water_19",
+    "subjectId": "water",
+    "type": "single",
+    "tags": [
+      "竊水",
+      "刑期",
+      "第98條",
+      "115猜題"
+    ],
+    "stem": "依《自來水法》第98條規定，凡符合法規所列舉之特定竊水行為者，即構成刑事犯罪，依法可處幾年以下有期徒刑、拘役或五百元以下罰金？",
+    "options": [
+      "一年以下",
+      "二年以下",
+      "三年以下",
+      "五年以下"
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "自來水法第 98 條規定，竊水者處五年以下有期徒刑、拘役或五百元以下罰金；營業章程第 40 條則以新臺幣一千五百元以下罰金表述。"
   },
-
-  // ============================================================
-  // 自來水法 — 複選 Q21-Q30
-  // ============================================================
   {
-    seed_id: "v2_water_21", subjectId: "water", type: "multi", tags: ["水質水量保護區","第11條","115猜題"],
-    stem: "依《自來水法》第11條規定，主管機關得劃定公布「水質水量保護區」，並依本法禁止或限制特定貽害水質與水量之行為。下列哪些行為明確屬於法律明文禁止或限制之範疇？",
-    options: [
+    "seed_id": "v2_water_20",
+    "subjectId": "water",
+    "type": "single",
+    "tags": [
+      "竊水",
+      "追償",
+      "第71條",
+      "115猜題"
+    ],
+    "stem": "依《自來水法》第71條及營業章程第40條規定，對於確認有竊水行為之用戶，自來水事業除得依法告訴及停水外，並得向其追償多久期間之水費？",
+    "options": [
+      "三個月以上半年以下",
+      "三個月以上一年以下",
+      "六個月以上一年以下",
+      "一年以上二年以下"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "自來水法第71條：對於竊水者追償三個月以上一年以下之水費。"
+  },
+  {
+    "seed_id": "v2_water_21",
+    "subjectId": "water",
+    "type": "multi",
+    "tags": [
+      "水質水量保護區",
+      "第11條",
+      "115猜題"
+    ],
+    "stem": "依《自來水法》第11條規定，主管機關得劃定公布「水質水量保護區」，並依本法禁止或限制特定貽害水質與水量之行為。下列哪些行為明確屬於法律明文禁止或限制之範疇？",
+    "options": [
       "濫伐林木或濫墾土地",
       "設置垃圾掩埋場或焚化爐",
       "興建或擴建高爾夫球場",
-      "當地居民非營利且維持生活必要之基礎公共建設與核准土地容許使用",
+      "當地居民非營利且維持生活必要之基礎公共建設與核准土地容許使用"
     ],
-    answer: ["A","B","C"],
-    explanation: "(A)(B)(C)為第11條第1項明文限制行為；(D)為同條第2項但書例外，不在此限。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "explanation": "(A)(B)(C)為第11條第1項明文限制行為；(D)為同條第2項但書例外，不在此限。"
   },
   {
-    seed_id: "v2_water_22", subjectId: "water", type: "multi", tags: ["水源特定區","稅賦減免","第12-1條","115猜題"],
-    stem: "依《自來水法》第12-1條規定，水質水量保護區依都市計畫程序劃定為「水源特定區」者，區內土地應視限制程度減免下列哪些特定的國家稅賦？",
-    options: ["土地增值稅", "個人所得稅", "贈與稅", "遺產稅"],
-    answer: ["A","C","D"],
-    explanation: "自來水法第12-1條：應減免土地增值稅、贈與稅及遺產稅，不包含個人所得稅。",
+    "seed_id": "v2_water_22",
+    "subjectId": "water",
+    "type": "multi",
+    "tags": [
+      "水源特定區",
+      "稅賦減免",
+      "第12-1條",
+      "115猜題"
+    ],
+    "stem": "依《自來水法》第12-1條規定，水質水量保護區依都市計畫程序劃定為「水源特定區」者，區內土地應視限制程度減免下列哪些特定的國家稅賦？",
+    "options": [
+      "土地增值稅",
+      "個人所得稅",
+      "贈與稅",
+      "遺產稅"
+    ],
+    "answer": [
+      "A",
+      "C",
+      "D"
+    ],
+    "explanation": "自來水法第12-1條：應減免土地增值稅、贈與稅及遺產稅，不包含個人所得稅。"
   },
   {
-    seed_id: "v2_water_23", subjectId: "water", type: "multi", tags: ["代收費用","第26條","115猜題"],
-    stem: "依《台灣自來水公司營業章程》第26條規定，台水公司除收取基本費及用水費外，得依法律規定隨水費附徵或代收特定費用。下列哪些選項屬於台水公司隨水費附徵或代收之法定費用？",
-    options: ["水源保育與回饋費", "一般廢棄物清除處理費", "污水下水道使用費", "環保署主管之水污染防治費"],
-    answer: ["A","B","C"],
-    explanation: "營業章程第26條：得代收水源保育與回饋費、清除處理費、污水下水道使用費。水污染防治費不屬於代收範圍。",
+    "seed_id": "v2_water_23",
+    "subjectId": "water",
+    "type": "multi",
+    "tags": [
+      "代收費用",
+      "第26條",
+      "115猜題"
+    ],
+    "stem": "依《台灣自來水公司營業章程》第26條規定，台水公司除收取基本費及用水費外，得依法律規定隨水費附徵或代收特定費用。下列哪些選項屬於台水公司隨水費附徵或代收之法定費用？",
+    "options": [
+      "水源保育與回饋費",
+      "一般廢棄物清除處理費",
+      "污水下水道使用費",
+      "環保署主管之水污染防治費"
+    ],
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "explanation": "營業章程第26條：得代收水源保育與回饋費、清除處理費、污水下水道使用費。水污染防治費不屬於代收範圍。"
   },
   {
-    seed_id: "v2_water_24", subjectId: "water", type: "multi", tags: ["必要設備","第43條","115猜題"],
-    stem: "依《自來水法》第20條與第43條規定，自來水事業應具有維繫正常供水之必要設備。下列哪些選項屬於法律明文規定之自來水必要設備？",
-    options: ["取水設備與貯水設備", "導水設備與淨水設備", "送水設備與配水設備", "家用節水或純化過濾之開飲設備"],
-    answer: ["A","B","C"],
-    explanation: "六大必要設備：取水、貯水、導水、淨水、送水、配水。家用開飲設備為用戶私有，非必要設備。",
+    "seed_id": "v2_water_24",
+    "subjectId": "water",
+    "type": "multi",
+    "tags": [
+      "必要設備",
+      "第43條",
+      "115猜題"
+    ],
+    "stem": "依《自來水法》第20條與第43條規定，自來水事業應具有維繫正常供水之必要設備。下列哪些選項屬於法律明文規定之自來水必要設備？",
+    "options": [
+      "取水設備與貯水設備",
+      "導水設備與淨水設備",
+      "送水設備與配水設備",
+      "家用節水或純化過濾之開飲設備"
+    ],
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "explanation": "六大必要設備：取水、貯水、導水、淨水、送水、配水。家用開飲設備為用戶私有，非必要設備。"
   },
   {
-    seed_id: "v2_water_25", subjectId: "water", type: "multi", tags: ["停水事由","第39條","115猜題"],
-    stem: "依《台灣自來水公司營業章程》第39條規定，用戶若出現違反章程之特定法定情事，台水公司得予停止供水。下列哪些選項屬於該條文規範得予停水之情事？",
-    options: [
+    "seed_id": "v2_water_25",
+    "subjectId": "water",
+    "type": "multi",
+    "tags": [
+      "停水事由",
+      "第39條",
+      "115猜題"
+    ],
+    "stem": "依《台灣自來水公司營業章程》第39條規定，用戶若出現違反章程之特定法定情事，台水公司得予停止供水。下列哪些選項屬於該條文規範得予停水之情事？",
+    "options": [
       "有竊水行為，證據確實者",
       "用水設備經檢驗不合規定，限期通知改善而逾期仍不改善者",
       "無正當理由拒絕本公司依法執行白晝用水設備檢查或查錄用水量者",
-      "當月抄表發現用戶用水量較上一期突然暴增達五倍以上者",
+      "當月抄表發現用戶用水量較上一期突然暴增達五倍以上者"
     ],
-    answer: ["A","B","C"],
-    explanation: "(D)用水量突然暴增屬於異常漏水或變更用途之稽查範圍，不能在查明前逕行作為合法停水之事由。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "explanation": "(D)用水量突然暴增屬於異常漏水或變更用途之稽查範圍，不能在查明前逕行作為合法停水之事由。"
   },
   {
-    seed_id: "v2_water_26", subjectId: "water", type: "multi", tags: ["竊水","消防栓","第98條","115猜題"],
-    stem: "依《自來水法》第98條與《台灣自來水公司營業章程》第40條規定，有特定行為經查屬實者，在法律定義上「即構成竊水行為」。下列哪些行為屬於法定的竊水行為？",
-    options: [
+    "seed_id": "v2_water_26",
+    "subjectId": "water",
+    "type": "multi",
+    "tags": [
+      "竊水",
+      "消防栓",
+      "第98條",
+      "115猜題"
+    ],
+    "stem": "依《自來水法》第98條與《台灣自來水公司營業章程》第40條規定，有特定行為經查屬實者，在法律定義上「即構成竊水行為」。下列哪些行為屬於法定的竊水行為？",
+    "options": [
       "未經自來水事業許可，在自來水事業供水管線上取水者",
       "繞越所裝量水器私接水管者",
       "毀損或改變量水器之構造，致量水器失效或不準確者",
-      "火災發生時，義消人員為滅火需要而開啟公用消防栓取水者",
+      "火災發生時，義消人員為滅火需要而開啟公用消防栓取水者"
     ],
-    answer: ["A","B","C"],
-    explanation: "第98條第4款但書：未經許可擅自開啟消火栓取水者為竊水。但因消防需要而開啟，不在此限。故(D)不構成竊水。",
+    "answer": [
+      "A",
+      "B",
+      "C"
+    ],
+    "explanation": "第98條第4款但書：未經許可擅自開啟消火栓取水者為竊水。但因消防需要而開啟，不在此限。故(D)不構成竊水。"
   },
   {
-    seed_id: "v2_water_27", subjectId: "water", type: "multi", tags: ["臨時用水","分類","第37條","115猜題"],
-    stem: "依《台灣自來水公司營業章程》第37條規定，所謂「臨時用水」，指申請用水之地點無法提供合法接水證件，或用水性質屬臨時性者。下列哪些選項屬於章程明文列舉之臨時用水分類？",
-    options: [
+    "seed_id": "v2_water_27",
+    "subjectId": "water",
+    "type": "multi",
+    "tags": [
+      "臨時用水",
+      "分類",
+      "第37條",
+      "115猜題"
+    ],
+    "stem": "依《台灣自來水公司營業章程》第37條規定，所謂「臨時用水」，指申請用水之地點無法提供合法接水證件，或用水性質屬臨時性者。下列哪些選項屬於章程明文列舉之臨時用水分類？",
+    "options": [
       "建物改建：建築物拆除或重建時之短期用水",
       "工程用水：以建築執照申請之工程用水",
       "商業展示：商場百貨公司週年慶期間之室內用水",
-      "違章臨時用水：經前臺灣省政府核准之違章建築用水",
+      "違章臨時用水：經前臺灣省政府核准之違章建築用水"
     ],
-    answer: ["A","B","D"],
-    explanation: "臨時用水法定分類：建物改建、工程用水、違章臨時用水、其他經核准之短期用水。(C)為常態商業用水，非臨時用水。",
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "explanation": "臨時用水法定分類：建物改建、工程用水、違章臨時用水、其他經核准之短期用水。(C)為常態商業用水，非臨時用水。"
   },
   {
-    seed_id: "v2_water_28", subjectId: "water", type: "multi", tags: ["白晝檢查","第18條","115猜題"],
-    stem: "依《台灣自來水公司營業章程》第18條規定，台水公司得派穿著制服並配戴識別證之員工或委外人員執行特定職掌。於「白晝」執行下列哪些事項時，用戶非有正當理由不得拒絕？",
-    options: [
+    "seed_id": "v2_water_28",
+    "subjectId": "water",
+    "type": "multi",
+    "tags": [
+      "白晝檢查",
+      "第18條",
+      "115猜題"
+    ],
+    "stem": "依《台灣自來水公司營業章程》第18條規定，台水公司得派穿著制服並配戴識別證之員工或委外人員執行特定職掌。於「白晝」執行下列哪些事項時，用戶非有正當理由不得拒絕？",
+    "options": [
       "挨家挨戶進行台水服務滿意度之問卷調查",
       "查錄當期用戶之實際用水量（抄表）",
       "辦理量水器之裝表、換表或鉛封（封印）",
-      "取締及取締違章違規用水案件",
+      "取締違章用水案件。"
     ],
-    answer: ["B","C","D"],
-    explanation: "法定不得拒絕事項：檢查用水設備、查錄用水量、裝拆換表、封印、取締違章用水。問卷調查不具法令強制性。",
+    "answer": [
+      "B",
+      "C",
+      "D"
+    ],
+    "explanation": "法定不得拒絕事項：檢查用水設備、查錄用水量、裝拆換表、封印、取締違章用水。問卷調查不具法令強制性。"
   },
   {
-    seed_id: "v2_water_29", subjectId: "water", type: "multi", tags: ["總量水器","差額水量","第27條","115猜題"],
-    stem: "依《台灣自來水公司營業章程》第27條規定，設有總量水器之共同用戶，常發生計量差異。當通過總量水器之示度「超過」各用戶分表量水器示度之和時，在未有特別約定下，其差額水量應如何處理？",
-    options: [
+    "seed_id": "v2_water_29",
+    "subjectId": "water",
+    "type": "multi",
+    "tags": [
+      "總量水器",
+      "差額水量",
+      "第27條",
+      "115猜題"
+    ],
+    "stem": "依《台灣自來水公司營業章程》第27條規定，設有總量水器之共同用戶，常發生計量差異。當通過總量水器之示度「超過」各用戶分表量水器示度之和時，在未有特別約定下，其差額水量應如何處理？",
+    "options": [
       "差額水量由各戶平均分擔",
       "各用戶間另有書面約定並以書面通知本公司者，依其約定辦理",
       "一律由該共同建築物中用水量最大之大用戶全額分擔",
-      "差額水量視為管線漏水，全額由台灣自來水公司自行吸收損失",
+      "差額水量視為管線漏水，全額由台灣自來水公司自行吸收損失"
     ],
-    answer: ["A","B"],
-    explanation: "章程第27條：差額水量由各戶平均分擔，但各用戶間另有書面約定並以書面通知本公司者，依其約定。",
+    "answer": [
+      "A",
+      "B"
+    ],
+    "explanation": "章程第27條：差額水量由各戶平均分擔，但各用戶間另有書面約定並以書面通知本公司者，依其約定。"
   },
   {
-    seed_id: "v2_water_30", subjectId: "water", type: "multi", tags: ["簡易自來水","第110條","115猜題"],
-    stem: "依《自來水法》第110條規定，政府考量偏鄉與地方供水特性，設有「簡易自來水事業」之管理與豁免機制。下列關於簡易自來水事業之法規規範，哪些選項完全正確？",
-    options: [
+    "seed_id": "v2_water_30",
+    "subjectId": "water",
+    "type": "multi",
+    "tags": [
+      "簡易自來水",
+      "第110條",
+      "115猜題"
+    ],
+    "stem": "依《自來水法》第110條規定，政府考量偏鄉與地方供水特性，設有「簡易自來水事業」之管理與豁免機制。下列關於簡易自來水事業之法規規範，哪些選項完全正確？",
+    "options": [
       "每日供水量在三千立方公尺以下之簡易自來水事業，得不適用本法有關必須設立股份有限公司之限制",
       "每日供水量在三百立方公尺以下之簡易自來水事業，得不適用本法有關聘僱操作技術人員必須經國家考驗合格之限制",
       "每日供水量在三千立方公尺以下者，即完全脫離本法監督，不需受任何自治法規約束管理",
-      "簡易自來水事業之所有權人，得申請自來水事業（如台水）同意後，將其供水系統無償點交由台水代管或接管",
+      "簡易自來水事業之所有權人或管理委員會代表人，得申請自來水事業同意後，由自來水事業代管或接管其供水系統。"
     ],
-    answer: ["A","B","D"],
-    explanation: "(C)錯誤，仍應由直轄市或縣（市）主管機關另行訂定自治法規管理。",
-  },
+    "answer": [
+      "A",
+      "B",
+      "D"
+    ],
+    "explanation": "(C)錯誤，仍應由直轄市或縣（市）主管機關另行訂定自治法規管理。"
+  }
 ];
 
 window.SEED_QUESTIONS_V2 = SEED_QUESTIONS_V2;

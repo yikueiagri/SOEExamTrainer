@@ -27,7 +27,11 @@ function loadState() {
   if (parsed) {
     // Merge: 新的 seed_id 自動加入，已存在則保留使用者紀錄
     const existingIds = new Set(parsed.questions.map(q => q.seed_id).filter(Boolean));
-    const toAdd = allSeed.filter(s => s.seed_id && !existingIds.has(s.seed_id));
+    const existingKeys = new Set(parsed.questions.map(q => `${q.subjectId || ""}::${q.stem || ""}`));
+    const toAdd = allSeed.filter(s => {
+      if (s.seed_id && existingIds.has(s.seed_id)) return false;
+      return !existingKeys.has(`${s.subjectId || ""}::${s.stem || ""}`);
+    });
     if (toAdd.length > 0) {
       const newQs = toAdd.map(q => ({
         id: uid(),
