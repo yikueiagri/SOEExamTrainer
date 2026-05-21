@@ -12,6 +12,7 @@ function loadState() {
   const allSeed = [
     ...(window.SEED_QUESTIONS || []),
     ...(window.SEED_QUESTIONS_V2 || []),
+    ...(window.SEED_QUESTIONS_V3 || []),
   ];
 
   let parsed = null;

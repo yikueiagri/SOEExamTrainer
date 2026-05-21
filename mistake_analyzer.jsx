@@ -72,6 +72,20 @@ function parseDiagSections(text) {
   });
 }
 
+function formatDiagForCopy(result, mistakes) {
+  if (!result) return "";
+  const lines = [
+    "SOE Exam Trainer 錯題 AI 診斷",
+    `產生時間：${result.at.toLocaleString("zh-TW")}`,
+    `分析題數：${Math.min(mistakes.length, 50)} / ${mistakes.length}`,
+    "",
+  ];
+  result.sections.forEach((sec, i) => {
+    lines.push(`${i + 1}. ${sec.title}`, sec.body.trim(), "");
+  });
+  return lines.join("\n").trim();
+}
+
 const DIAG_THEMES = [
   { kicker: "弱點掃描", glyph: "🎯", colorVar: "var(--warn-ink)", bg: "linear-gradient(135deg, oklch(0.95 0.05 30), var(--surface))" },
   { kicker: "混淆對比", glyph: "⚖️", colorVar: "var(--violet-ink, oklch(0.4 0.18 295))", bg: "linear-gradient(135deg, oklch(0.95 0.05 295), var(--surface))" },
@@ -85,6 +99,7 @@ function MistakeAnalyzer({ mistakes, subjects }) {
   const [result, setResult] = useStateMA(null);
   const [error, setError] = useStateMA(null);
   const [expanded, setExpanded] = useStateMA(false);
+  const [copyStatus, setCopyStatus] = useStateMA("");
 
   const run = async () => {
     if (mistakes.length === 0) return;
@@ -103,9 +118,17 @@ function MistakeAnalyzer({ mistakes, subjects }) {
     }
   };
 
-  const copyAll = () => {
+  const copyAll = async () => {
     if (!result) return;
-    navigator.clipboard.writeText(result.raw);
+    const text = formatDiagForCopy(result, mistakes);
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopyStatus("已複製");
+      setTimeout(() => setCopyStatus(""), 1600);
+    } catch (e) {
+      setCopyStatus("複製失敗");
+      setTimeout(() => setCopyStatus(""), 1800);
+    }
   };
 
   if (mistakes.length === 0) return null;
@@ -126,9 +149,9 @@ function MistakeAnalyzer({ mistakes, subjects }) {
           <div className="diag-actions">
             {state === "done" && (
               <>
-                <button className="btn-mini" onClick={copyAll} title="複製全文">
+                <button className="btn-mini" onClick={copyAll} title="複製可貼到其他平台的診斷文字">
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                  複製
+                  {copyStatus || "複製診斷"}
                 </button>
                 <button className="btn-mini" onClick={run}>
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 0 1 15.5-6.36L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15.5 6.36L3 16"/><path d="M3 21v-5h5"/></svg>
